@@ -1,55 +1,41 @@
-﻿using DojoDDD.Api.DojoDDD.Domain;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using DojoDDD.Application.Specifications;
+using DojoDDD.Domain.Abstractions.Repositories;
+using DojoDDD.Domain.Entities;
 
 namespace DojoDDD.Api.Controllers
 {
     [ApiController]
     [Route("produtos")]
-    public class ProdutoController : Controller
+    public class ProductsController : Controller
     {
-        private readonly IProdutoRepositorio _produtoRepositorio;
+        private readonly IQueryableRepository<Product> _repository;
 
-        public ProdutoController(IProdutoRepositorio produtoRepositorio)
-        {
-            _produtoRepositorio = produtoRepositorio;
-        }
+        public ProductsController(IQueryableRepository<Product> repository) => _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
         [HttpGet]
-        [Route("")]
         public async Task<IActionResult> Get()
         {
-            try
-            {
-                var clientes = await _produtoRepositorio.Consultar();
-                if (clientes == null)
-                    return NoContent();
+            var products = await _repository.GetAllAsync();
 
-                return Ok(clientes);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex });
-            }
+            if (products is null)
+                return NoContent();
+
+            return Ok(products);
         }
 
-        [HttpGet]
-        [Route("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] string id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            try
-            {
-                var clientes = await _produtoRepositorio.ConsultarPorId(int.Parse(id)).ConfigureAwait(false);
-                if (clientes == null)
-                    return NoContent();
 
-                return Ok(clientes);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex });
-            }
+            var product = await _repository.GetAsync(new FindProductByIdSpec(id)).ConfigureAwait(false);
+
+            if (product is null)
+                return NotFound();
+
+            return Ok(product);
         }
     }
 }

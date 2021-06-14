@@ -1,55 +1,40 @@
-﻿using DojoDDD.Api.DojoDDD.Domain;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using DojoDDD.Application.Specifications;
+using DojoDDD.Domain.Abstractions.Repositories;
+using DojoDDD.Domain.Entities;
 
 namespace DojoDDD.Api.Controllers
 {
     [ApiController]
     [Route("clientes")]
-    public class ClienteController : Controller
+    public class ClientsController : Controller
     {
-        private readonly IClienteRepositorio _clienteRepositorio;
+        private readonly IQueryableRepository<Client> _repository;
 
-        public ClienteController(IClienteRepositorio clienteRepositorio)
-        {
-            _clienteRepositorio = clienteRepositorio;
-        }
+        public ClientsController(IQueryableRepository<Client> repository) => _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
         [HttpGet]
-        [Route("")]
         public async Task<IActionResult> Get()
         {
-            try
-            {
-                var clientes = await _clienteRepositorio.ConsultarTodosCliente();
-                if (clientes == null)
-                    return NoContent();
+            var clientes = await _repository.GetAllAsync();
 
-                return Ok(clientes);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex });
-            }
+            if (clientes is null)
+                return NoContent();
+
+            return Ok(clientes);
         }
 
-        [HttpGet]
-        [Route("{idCliente}")]
-        public async Task<IActionResult> GetById([FromRoute] string idCliente)
+        [HttpGet("{clientId}")]
+        public async Task<IActionResult> GetById([FromRoute] string clientId)
         {
-            try
-            {
-                var clientes = await _clienteRepositorio.ConsultarPorId(idCliente).ConfigureAwait(false);
-                if (clientes == null)
-                    return NoContent();
+            var clientes = await _repository.GetAsync(new FindClientByIdSpec(clientId)).ConfigureAwait(false);
 
-                return Ok(clientes);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex });
-            }
+            if (clientes is null)
+                return NotFound();
+
+            return Ok(clientes);
         }
     }
 }

@@ -5,11 +5,23 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DojoDDD.Api", "src\DojoDDD.Api\DojoDDD.Api.csproj", "{DCDDFC2F-A55A-40B1-9E1F-86BD4F08CACD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{39CF43C0-6791-43B4-8D78-4EB551AFB977}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{39CF43C0-6791-43B4-8D78-4EB551AFB977}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DojoDDD.Domain", "src\DojoDDD.Domain\DojoDDD.Domain.csproj", "{43EB7331-7C0E-4082-909F-8D7BFA0699E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6C6F287F-58DD-4055-9CCF-C8C9FC0F2502}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{48A56949-D44F-431C-80A8-1D02AB8B5EE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DojoDDD.UnitTests", "tests\DojoDDD.UnitTests\DojoDDD.UnitTests.csproj", "{35DECC0E-4EB5-4C66-8FE1-B2C45DD47CBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DojoDDD.Infra", "src\DojoDDD.Infra\DojoDDD.Infra.csproj", "{909C472A-32CA-466C-8B0C-9AEDD3E73EDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DojoDDD.Application", "src\DojoDDD.Application\DojoDDD.Application.csproj", "{5253C2B1-C06B-453E-8D19-59F551559B27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,11 +33,34 @@ Global
 		{DCDDFC2F-A55A-40B1-9E1F-86BD4F08CACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCDDFC2F-A55A-40B1-9E1F-86BD4F08CACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCDDFC2F-A55A-40B1-9E1F-86BD4F08CACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43EB7331-7C0E-4082-909F-8D7BFA0699E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43EB7331-7C0E-4082-909F-8D7BFA0699E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43EB7331-7C0E-4082-909F-8D7BFA0699E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43EB7331-7C0E-4082-909F-8D7BFA0699E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35DECC0E-4EB5-4C66-8FE1-B2C45DD47CBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35DECC0E-4EB5-4C66-8FE1-B2C45DD47CBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35DECC0E-4EB5-4C66-8FE1-B2C45DD47CBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35DECC0E-4EB5-4C66-8FE1-B2C45DD47CBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{909C472A-32CA-466C-8B0C-9AEDD3E73EDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{909C472A-32CA-466C-8B0C-9AEDD3E73EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{909C472A-32CA-466C-8B0C-9AEDD3E73EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{909C472A-32CA-466C-8B0C-9AEDD3E73EDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5253C2B1-C06B-453E-8D19-59F551559B27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5253C2B1-C06B-453E-8D19-59F551559B27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5253C2B1-C06B-453E-8D19-59F551559B27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5253C2B1-C06B-453E-8D19-59F551559B27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DB980C48-43EA-4E1B-90DD-096A92959D81}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DCDDFC2F-A55A-40B1-9E1F-86BD4F08CACD} = {6C6F287F-58DD-4055-9CCF-C8C9FC0F2502}
+		{43EB7331-7C0E-4082-909F-8D7BFA0699E2} = {6C6F287F-58DD-4055-9CCF-C8C9FC0F2502}
+		{35DECC0E-4EB5-4C66-8FE1-B2C45DD47CBC} = {48A56949-D44F-431C-80A8-1D02AB8B5EE7}
+		{909C472A-32CA-466C-8B0C-9AEDD3E73EDF} = {6C6F287F-58DD-4055-9CCF-C8C9FC0F2502}
+		{5253C2B1-C06B-453E-8D19-59F551559B27} = {6C6F287F-58DD-4055-9CCF-C8C9FC0F2502}
 	EndGlobalSection
 EndGlobal
