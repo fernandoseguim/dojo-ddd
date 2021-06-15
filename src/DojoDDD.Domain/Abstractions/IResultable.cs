@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentResults;
 
-namespace DojoDDD.Domain.Abstractions.Entities
+namespace DojoDDD.Domain.Abstractions
 {
     public interface IResultable
     {

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DojoDDD.Application.Specifications;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.Entities;
+using DojoDDD.Domain.Specifications;
 
 namespace DojoDDD.Api.Controllers
 {

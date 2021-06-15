@@ -6,6 +6,8 @@
 
     <ItemGroup>
       <PackageReference Include="FluentResults" Version="2.5.0" />
+      <PackageReference Include="FluentValidation" Version="10.2.3" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.7" />
       <PackageReference Include="NSpecifications" Version="1.1.0" />
     </ItemGroup>
 

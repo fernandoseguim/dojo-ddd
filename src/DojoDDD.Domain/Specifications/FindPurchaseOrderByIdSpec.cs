@@ -1,7 +1,7 @@
-﻿using DojoDDD.Domain.Aggregates;
+﻿using DojoDDD.Domain.Entities;
 using NSpecifications;
 
-namespace DojoDDD.Application.Specifications
+namespace DojoDDD.Domain.Specifications
 {
     public class FindPurchaseOrderByIdSpec : Spec<PurchaseOrder>
     {

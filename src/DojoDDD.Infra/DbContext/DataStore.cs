@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bogus;
-using DojoDDD.Domain.Aggregates;
 using DojoDDD.Domain.Entities;
 using DojoDDD.Domain.ValueObjects;
 
@@ -35,7 +34,7 @@ namespace DojoDDD.Infra.DbContext
                                             f.Address.Country(),
                                             f.Address.SecondaryAddress()),
                                             f.Random.Int(18, 75),
-                                            f.Finance.Amount(100, 1000)))
+                                            f.Finance.Amount(1000, 10000)))
                     .Generate(10)
                 .ToList();
 

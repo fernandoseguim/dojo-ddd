@@ -1,9 +1,14 @@
 ﻿using DojoDDD.Application;
+using DojoDDD.Application.Abstractions.UseCases;
+using DojoDDD.Application.UseCases;
+using DojoDDD.Domain.Abstractions.Handlers;
 using DojoDDD.Domain.Abstractions.Repositories;
-using DojoDDD.Domain.Aggregates;
 using DojoDDD.Domain.Entities;
+using DojoDDD.Domain.Handlers;
+using DojoDDD.Domain.Rules.RuleBooks;
 using DojoDDD.Infra.DbContext;
 using DojoDDD.Infra.Repositories;
+using DojoDDD.Infra.Serializers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,15 +25,26 @@ namespace DojoDDD.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                    .AddNewtonsoftJson(options =>
+                    {
+                        options.SerializerSettings.ContractResolver = new EmptyCollectionContractResolver();
+                        options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    });;
 
             services.AddLogging();
 
             services.AddSingleton<DataStore>();
             services.AddSingleton<IQueryableRepository<Client>, ClientRepository>();
             services.AddSingleton<IQueryableRepository<Product>, ProductsRepository>();
-            services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
-            services.AddTransient<IEntityRepository<PurchaseOrder>, OrdemCompraRepositorio>();
+            services.AddSingleton<IQueryableRepository<PurchaseOrder>, PurchaseOrderRepository>();
+            services.AddSingleton<IEntityRepository<PurchaseOrder>, PurchaseOrderRepository>();
+
+            services.AddSingleton<RulesForRegisterNewPurchaseOrder>();
+            services.AddScoped<IPurchaseOrderRegisterCommandHandler, PurchaseOrderRegisterCommandHandler>();
+
+            services.AddScoped<IPurchaseOrderRegisterService, PurchaseOrderRegisterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

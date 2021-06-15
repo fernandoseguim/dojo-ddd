@@ -4,18 +4,18 @@ namespace DojoDDD.Domain.Entities
 {
     public class Product : IEquatable<Product>
     {
-        public Product(int id, string description, int quantity, decimal unitPrice, decimal purchaseMinAmount)
+        public Product(int id, string description, int availableQuantity, decimal unitPrice, decimal purchaseMinAmount)
         {
             Id = id;
             Description = description;
-            Quantity = quantity;
+            AvailableQuantity = availableQuantity;
             UnitPrice = unitPrice;
             PurchaseMinAmount = purchaseMinAmount;
         }
 
         public int Id { get;}
         public string Description { get;}
-        public int Quantity { get;}
+        public int AvailableQuantity { get; }
         public decimal UnitPrice { get;}
         public decimal PurchaseMinAmount { get;}
 

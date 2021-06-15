@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using DojoDDD.Domain.Events;
 using FluentResults;
 
 namespace DojoDDD.Domain.Abstractions.Entities
@@ -16,6 +18,9 @@ namespace DojoDDD.Domain.Abstractions.Entities
 
         public bool HasError(Error error) => _errors.Any(error.Equals);
 
+        public DateTime CreatedAt { get; protected set; }
+        public DateTime? UpdatedAt { get; protected set; }
+
         protected void AppendErrors(IEnumerable<Error> errors)
         {
             foreach (var error in errors)
@@ -25,5 +30,7 @@ namespace DojoDDD.Domain.Abstractions.Entities
         }
 
         protected void AppendError(Error error) => _errors.Add(error);
+
+        public TEvent GetEvent<TEvent, TEntity>() where TEvent : IEvent<TEntity> => (TEvent)Activator.CreateInstance(typeof(TEvent), this);
     }
 }

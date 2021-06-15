@@ -2,9 +2,13 @@
 using System;
 using System.Threading.Tasks;
 using DojoDDD.Application;
+using DojoDDD.Application.Abstractions.UseCases;
 using DojoDDD.Application.Specifications;
+using DojoDDD.Domain.Abstractions.Handlers;
 using DojoDDD.Domain.Abstractions.Repositories;
-using DojoDDD.Domain.Aggregates;
+using DojoDDD.Domain.Commands;
+using DojoDDD.Domain.Entities;
+using DojoDDD.Domain.Handlers;
 
 namespace DojoDDD.Api.Controllers
 {
@@ -23,10 +27,13 @@ namespace DojoDDD.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] PurchaseOrder ordemCompra, [FromServices] IPurchaseOrderService service)
+        public async Task<IActionResult> Post([FromBody] PurchaseOrderRegisterCommand command, [FromServices] IPurchaseOrderRegisterService service)
         {
-            var result = await service.Register(ordemCompra.ClientId, ordemCompra.ProductId, ordemCompra.OrderedQuantity);
-            return Created(string.Empty, result);
+            var result = await service.ProcessAsync(command);
+
+            return result.IsFailed
+                    ? StatusCode(result.StatusCode, result.DetailedErrors)
+                    : StatusCode(result.StatusCode, result.Value);
         }
     }
 }
