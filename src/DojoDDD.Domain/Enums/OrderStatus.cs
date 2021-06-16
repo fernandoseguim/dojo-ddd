@@ -5,6 +5,7 @@
         Requested = 1,
         Analyzing = 2,
         Closed = 3,
-        Canceled = 4
+        Canceled = 4,
+        Scheduled = 5
     }
 }

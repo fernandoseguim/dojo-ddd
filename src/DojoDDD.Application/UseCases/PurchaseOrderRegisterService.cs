@@ -5,7 +5,8 @@ using DojoDDD.Application.Abstractions.UseCases;
 using DojoDDD.Domain.Abstractions.Handlers;
 using DojoDDD.Domain.Commands;
 using DojoDDD.Domain.Entities;
-using FluentResults;
+using DojoDDD.Domain.Events;
+using MassTransit;
 
 namespace DojoDDD.Application.UseCases
 {
@@ -13,10 +14,9 @@ namespace DojoDDD.Application.UseCases
     {
         private readonly IPurchaseOrderRegisterCommandHandler _handler;
 
-        public PurchaseOrderRegisterService(IPurchaseOrderRegisterCommandHandler handler)
-            => _handler = handler ?? throw new ArgumentNullException(nameof(handler));
+        public PurchaseOrderRegisterService(IPurchaseOrderRegisterCommandHandler handler) => _handler = handler ?? throw new ArgumentNullException(nameof(handler));
 
-        public async Task<HttpResult<PurchaseOrder>> ProcessAsync(PurchaseOrderRegisterCommand command)
+        public async Task<HttpResult<PurchaseOrder>> ProcessAsync(PurchaseOrderRegisterCommand command, Func<IEvent<PurchaseOrder>, Task> publish)
         {
             if(command is null) throw new ArgumentNullException(nameof(command));
 
@@ -28,15 +28,9 @@ namespace DojoDDD.Application.UseCases
             if(result.IsFailed)
                 return new HttpResult<PurchaseOrder>(400, result.Errors);
 
-            //check business hour
+            await publish(result.Value.GetEvent<PurchaseOrderWasRequested, PurchaseOrder>());
 
-            //if in business hour
-             //request risk analysis
-
-            //else
-             //schedule to next window
-
-            return new HttpResult<PurchaseOrder>(200, result.Value);
+            return new HttpResult<PurchaseOrder>(201, result.Value);
         }
     }
 }

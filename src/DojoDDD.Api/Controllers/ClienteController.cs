@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using DojoDDD.Application.Specifications;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.Entities;
 using DojoDDD.Domain.Specifications;

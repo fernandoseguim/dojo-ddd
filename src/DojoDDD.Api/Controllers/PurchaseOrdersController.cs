@@ -3,12 +3,13 @@ using System;
 using System.Threading.Tasks;
 using DojoDDD.Application;
 using DojoDDD.Application.Abstractions.UseCases;
-using DojoDDD.Application.Specifications;
 using DojoDDD.Domain.Abstractions.Handlers;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.Commands;
 using DojoDDD.Domain.Entities;
 using DojoDDD.Domain.Handlers;
+using DojoDDD.Domain.Specifications;
+using MassTransit;
 
 namespace DojoDDD.Api.Controllers
 {
@@ -27,9 +28,9 @@ namespace DojoDDD.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] PurchaseOrderRegisterCommand command, [FromServices] IPurchaseOrderRegisterService service)
+        public async Task<IActionResult> Post([FromBody] PurchaseOrderRegisterCommand command, [FromServices] IPurchaseOrderRegisterService service, [FromServices] IBus bus)
         {
-            var result = await service.ProcessAsync(command);
+            var result = await service.ProcessAsync(command, @event => bus.Publish(@event));
 
             return result.IsFailed
                     ? StatusCode(result.StatusCode, result.DetailedErrors)

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using DojoDDD.Domain.Abstractions.Errors;
 using DojoDDD.Domain.Errors;
 using FluentResults;
 

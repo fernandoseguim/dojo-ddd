@@ -6,8 +6,8 @@ using DojoDDD.Domain.Events;
 
 namespace DojoDDD.Application.Abstractions.UseCases
 {
-    public interface IPurchaseOrderRegisterService
+    public interface IPurchaseOrderProcessingService
     {
-        Task<HttpResult<PurchaseOrder>> ProcessAsync(PurchaseOrderRegisterCommand command, Func<IEvent<PurchaseOrder>, Task> publish);
+        Task Process(PurchaseOrderProcessingCommand command, Func<IEvent<PurchaseOrder>, Task> publish);
     }
 }

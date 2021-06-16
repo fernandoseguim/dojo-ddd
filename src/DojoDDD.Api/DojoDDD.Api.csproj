@@ -7,11 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DojoDDD.Application\DojoDDD.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Entities;
 using DojoDDD.Domain.Enums;
 
@@ -15,6 +16,7 @@ namespace DojoDDD.Domain.Entities
         public int RequestedQuantity { get; private set; }
         public decimal OrderAmount { get; private set; }
         public OrderStatus Status { get; private set; }
+        public DateTime? ScheduledTo { get; private set; }
 
         public static PurchaseOrder Create(Client client, Product product, int requestedQuantity)
         {
@@ -30,6 +32,25 @@ namespace DojoDDD.Domain.Entities
             };
 
             return order;
+        }
+
+        public async Task Schedule(Func<Task<DateTime>> scheduler)
+        {
+            UpdatedAt = DateTime.UtcNow;
+            Status = OrderStatus.Scheduled;
+            ScheduledTo = await scheduler();
+        }
+
+        public void Cancel()
+        {
+            Status = OrderStatus.Canceled;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void Close()
+        {
+            Status = OrderStatus.Closed;
+            UpdatedAt = DateTime.UtcNow;
         }
     }
 }
