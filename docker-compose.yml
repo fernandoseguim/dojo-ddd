@@ -1,0 +1,76 @@
+version: '3.4'
+
+services:
+  dojoddd.api:
+    image: ${DOCKER_REGISTRY-}dojodddapi
+    build:
+      context: .
+      dockerfile: src/DojoDDD.Api/Dockerfile
+    ports:
+      - "23001:80"
+    depends_on:
+      - elk
+      - apm
+      - rabbit
+      # - redis
+      # - ravendb
+    networks:
+      - dojonet
+  elk:
+    container_name: dojo-elk
+    image: sebp/elk
+    ports:
+      - "5601:5601"
+      - "9200:9200"
+      - "5044:5044"
+    environment:
+      - discovery.type=single-node
+    networks:
+      - dojonet
+  apm:
+    container_name: dojo-apm
+    image: docker.elastic.co/apm/apm-server:7.9.2
+    ports:
+      - "8200:8200"
+      - "8201:8200"
+    depends_on:
+      - elk
+    networks:
+      - dojonet
+  rabbit:
+    container_name: dojo-rabbit
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - dojonet
+  # redis:
+  #   container_name: dojo-redis
+  #   image: redis
+  #   ports:
+  #     - "6379:6379"
+  #   environment:
+  #     - ALLOW_EMPTY_PASSWORD=yes
+  #   networks:
+  #     - dojonet
+  # ravendb:
+  #   container_name: dojo-ravendb
+  #   image: ravendb/ravendb
+  #   environment:
+  #     - RAVEN_LogToConsole=true
+  #     - RAVEN_DataDir=RavenData
+  #     - RAVEN_Setup_Mode=None
+  #     - RAVEN_Security_UnsecuredAccessAllowed='PrivateNetwork'
+  #     - RAVEN_License_Eula_Accepted=true
+  #   ports:
+  #     - "8000:8000"
+  #     - "8080:8080"
+  #   volumes:
+  #     - /opt/RavenDB/Server/config
+  #     - /opt/RavenDB/Server/RavenData
+  #   networks:
+  #     - dojonet
+networks:
+  dojonet:
+    driver: bridge
