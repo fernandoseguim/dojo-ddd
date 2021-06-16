@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using DojoDDD.Domain.Errors;
+using DojoDDD.Domain.PuchaseOrders.Errors;
 using FluentResults;
 
 namespace DojoDDD.Application.Abstractions

@@ -1,11 +1,12 @@
 ﻿using DojoDDD.Api.Extensions.MassTransit;
 using DojoDDD.Application.Abstractions.UseCases;
 using DojoDDD.Application.UseCases;
-using DojoDDD.Domain.Abstractions.Handlers;
 using DojoDDD.Domain.Abstractions.Repositories;
-using DojoDDD.Domain.Entities;
-using DojoDDD.Domain.Handlers;
-using DojoDDD.Domain.Rules.RuleBooks;
+using DojoDDD.Domain.Clients.Entities;
+using DojoDDD.Domain.Products.Entities;
+using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Domain.PuchaseOrders.Handlers;
+using DojoDDD.Domain.PuchaseOrders.Rules.RuleBooks;
 using DojoDDD.Infra.DbContext;
 using DojoDDD.Infra.Providers.BusinessPeriod;
 using DojoDDD.Infra.Repositories;

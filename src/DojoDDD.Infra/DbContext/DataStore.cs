@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bogus;
-using DojoDDD.Domain.Entities;
+using DojoDDD.Domain.Clients.Entities;
+using DojoDDD.Domain.Products.Entities;
+using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.ValueObjects;
 
 namespace DojoDDD.Infra.DbContext

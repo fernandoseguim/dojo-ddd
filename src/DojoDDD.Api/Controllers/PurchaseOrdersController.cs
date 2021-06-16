@@ -3,12 +3,10 @@ using System;
 using System.Threading.Tasks;
 using DojoDDD.Application;
 using DojoDDD.Application.Abstractions.UseCases;
-using DojoDDD.Domain.Abstractions.Handlers;
 using DojoDDD.Domain.Abstractions.Repositories;
-using DojoDDD.Domain.Commands;
-using DojoDDD.Domain.Entities;
-using DojoDDD.Domain.Handlers;
-using DojoDDD.Domain.Specifications;
+using DojoDDD.Domain.PuchaseOrders.Commands;
+using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Domain.PuchaseOrders.Specifications;
 using MassTransit;
 
 namespace DojoDDD.Api.Controllers

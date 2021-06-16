@@ -2,9 +2,9 @@
 using System.Diagnostics.CodeAnalysis;
 using DojoDDD.Api.Consumers;
 using DojoDDD.Api.Extensions.Configurations;
-using DojoDDD.Domain.Commands;
-using DojoDDD.Domain.Entities;
-using DojoDDD.Domain.Events;
+using DojoDDD.Domain.PuchaseOrders.Commands;
+using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Domain.PuchaseOrders.Events;
 using DojoDDD.Infra.Providers.Schedulers;
 using Hangfire;
 using Hangfire.MemoryStorage;

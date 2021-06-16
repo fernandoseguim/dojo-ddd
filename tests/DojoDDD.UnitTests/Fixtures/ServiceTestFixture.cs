@@ -1,7 +1,9 @@
 ﻿using AutoFixture;
 using DojoDDD.Domain.Abstractions.Repositories;
-using DojoDDD.Domain.Entities;
-using DojoDDD.Domain.Rules.RuleBooks;
+using DojoDDD.Domain.Clients.Entities;
+using DojoDDD.Domain.Products.Entities;
+using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Domain.PuchaseOrders.Rules.RuleBooks;
 using NSubstitute;
 
 namespace DojoDDD.UnitTests.Fixtures

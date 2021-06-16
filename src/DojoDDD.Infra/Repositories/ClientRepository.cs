@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Repositories;
-using DojoDDD.Domain.Entities;
+using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Infra.DbContext;
 using NSpecifications;
 

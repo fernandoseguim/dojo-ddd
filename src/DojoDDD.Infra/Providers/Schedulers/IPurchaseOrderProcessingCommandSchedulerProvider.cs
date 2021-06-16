@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Commands;
-using DojoDDD.Domain.Commands;
 
 namespace DojoDDD.Infra.Providers.Schedulers
 {

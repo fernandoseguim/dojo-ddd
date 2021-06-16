@@ -1,8 +1,11 @@
 ﻿using System.Threading.Tasks;
-using DojoDDD.Domain.Commands;
-using DojoDDD.Domain.Entities;
-using DojoDDD.Domain.Handlers;
-using DojoDDD.Domain.Specifications;
+using DojoDDD.Domain.Clients.Entities;
+using DojoDDD.Domain.Clients.Specifications;
+using DojoDDD.Domain.Products.Entities;
+using DojoDDD.Domain.Products.Specifications;
+using DojoDDD.Domain.PuchaseOrders.Commands;
+using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Domain.PuchaseOrders.Handlers;
 using DojoDDD.UnitTests.Fixtures;
 using FluentAssertions;
 using FluentResults;
