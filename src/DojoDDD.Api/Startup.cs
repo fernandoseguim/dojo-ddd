@@ -1,4 +1,5 @@
-﻿using DojoDDD.Api.Extensions.MassTransit;
+﻿using DojoDDD.Api.Extensions.HealthCheck;
+using DojoDDD.Api.Extensions.MassTransit;
 using DojoDDD.Application.Abstractions.UseCases;
 using DojoDDD.Application.UseCases;
 using DojoDDD.Domain.Abstractions.Repositories;
@@ -11,6 +12,7 @@ using DojoDDD.Infra.DbContext;
 using DojoDDD.Infra.Providers.BusinessPeriod;
 using DojoDDD.Infra.Repositories;
 using DojoDDD.Infra.Serializers;
+using Elastic.Apm.NetCoreAll;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,6 +39,7 @@ namespace DojoDDD.Api
                     });;
 
             services.AddLogging();
+            services.AddHealthChecks(_configuration);
 
             services.AddSingleton<DataStore>();
             services.AddSingleton<IQueryableRepository<Client>, ClientRepository>();
@@ -59,6 +62,8 @@ namespace DojoDDD.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseAllElasticApm(_configuration);
+
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
