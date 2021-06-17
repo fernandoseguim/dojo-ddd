@@ -10,6 +10,7 @@ using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.PuchaseOrders.Rules.RuleBooks;
 using DojoDDD.Domain.ValueObjects;
 using DojoDDD.Infra.DbContext.InMemory;
+using DojoDDD.Infra.DbContext.Models;
 using NSubstitute;
 
 namespace DojoDDD.UnitTests.Fixtures
@@ -39,10 +40,12 @@ namespace DojoDDD.UnitTests.Fixtures
         {
             public void Customize(IFixture fixture)
             {
-                fixture.Register(() => Substitute.For<IQueryableRepository<Client>>());
-                fixture.Register(() => Substitute.For<IQueryableRepository<Product>>());
-                fixture.Register(() => Substitute.For<IQueryableRepository<PurchaseOrder>>());
-                fixture.Register(() => Substitute.For<IWritableRepository<PurchaseOrder>>());
+                fixture.Register(() => Substitute.For<IQueryableRepository<ClientModel>>());
+                fixture.Register(() => Substitute.For<IQueryableRepository<ProductModel>>());
+                fixture.Register(() => Substitute.For<IQueryableRepository<PurchaseOrderQueryModel>>());
+
+                fixture.Register(() => Substitute.For<IEntityRepository<Client>>());
+                fixture.Register(() => Substitute.For<IEntityRepository<Product>>());
                 fixture.Register(() => Substitute.For<IEntityRepository<PurchaseOrder>>());
                 fixture.Register(() => new RulesForRegisterNewPurchaseOrder());
             }

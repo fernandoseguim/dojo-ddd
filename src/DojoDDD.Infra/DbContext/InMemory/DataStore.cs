@@ -5,15 +5,16 @@ using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Domain.Products.Entities;
 using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.ValueObjects;
+using DojoDDD.Infra.DbContext.Models;
 
 namespace DojoDDD.Infra.DbContext.InMemory
 {
     public class DataStore
     {
-        public List<PurchaseOrder> OrdensCompras { get; set; } = new List<PurchaseOrder>();
+        public ICollection<PurchaseOrderInMemoryModel> OrdensCompras { get; set; } = new List<PurchaseOrderInMemoryModel>();
 
-        public List<Client> Clientes { get; set; }
-        public List<Product> Produtos { get; set; }
+        public ICollection<ClientModel> Clientes { get; set; }
+        public ICollection<ProductModel> Produtos { get; set; }
 
         public DataStore()
         {
@@ -22,7 +23,7 @@ namespace DojoDDD.Infra.DbContext.InMemory
 
         private void LoadFakeData()
         {
-            Clientes = new Faker<Client>()
+            var clientes = new Faker<Client>()
                     .CustomInstantiator(f =>
                             new Client(
                                     f.Random.Guid().ToString("N"),
@@ -40,10 +41,14 @@ namespace DojoDDD.Infra.DbContext.InMemory
                     .Generate(10)
                 .ToList();
 
-            Produtos = new Faker<Product>()
+            Clientes = clientes.Select(client => (ClientModel)client).ToList();
+
+            var produtos = new Faker<Product>()
                     .CustomInstantiator(f => new Product(f.UniqueIndex, f.Commerce.ProductName(), 1000, decimal.Parse(f.Commerce.Price(1, 100, 2)), 500.00M))
                     .Generate(5)
                 .ToList();
+
+            Produtos = produtos.Select(product => (ProductModel) product).ToList();
         }
     }
 }

@@ -12,13 +12,13 @@ namespace DojoDDD.Domain.PuchaseOrders.Handlers
 {
     public class PurchaseOrderRegisterCommandHandler : IPurchaseOrderRegisterCommandHandler
     {
-        private readonly IQueryableRepository<Client> _clientsRepository;
-        private readonly IQueryableRepository<Product> _productsRepository;
+        private readonly IEntityRepository<Client> _clientsRepository;
+        private readonly IEntityRepository<Product> _productsRepository;
         private readonly IEntityRepository<PurchaseOrder> _orderRepository;
         private readonly RulesForRegisterNewPurchaseOrder _rules;
 
-        public PurchaseOrderRegisterCommandHandler(IQueryableRepository<Client> clientsRepository,
-                                                   IQueryableRepository<Product> productsRepository,
+        public PurchaseOrderRegisterCommandHandler(IEntityRepository<Client> clientsRepository,
+                                                   IEntityRepository<Product> productsRepository,
                                                    IEntityRepository<PurchaseOrder> orderRepository,
                                                    RulesForRegisterNewPurchaseOrder rules)
         {

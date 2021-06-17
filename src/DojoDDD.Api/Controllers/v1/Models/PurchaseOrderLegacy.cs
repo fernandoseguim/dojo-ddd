@@ -1,5 +1,5 @@
 ﻿using System;
-using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Infra.DbContext.Models;
 
 namespace DojoDDD.Api.Controllers.v1.Models
 {
@@ -15,12 +15,12 @@ namespace DojoDDD.Api.Controllers.v1.Models
         public decimal PrecoUnitario { get; set; }
         public PurchaseOrderStatusLegacy Status { get; set; }
 
-        public static implicit operator PurchaseOrderLegacy(PurchaseOrder entity)
+        public static implicit operator PurchaseOrderLegacy(PurchaseOrderQueryModel entity)
             => entity is null ? null : new PurchaseOrderLegacy
             {
                     Id = entity.Id,
                     DataOperacao = entity.CreatedAt,
-                    ProdutoId = entity.Product.Id,
+                    ProdutoId = int.Parse(entity.Product.Id),
                     ClienteId = entity.Client.Id,
                     QuantidadeSolicitada = entity.RequestedQuantity,
                     ValorOperacao = entity.OrderAmount,

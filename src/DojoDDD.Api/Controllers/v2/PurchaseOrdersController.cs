@@ -3,7 +3,7 @@ using DojoDDD.Application.Abstractions.UseCases;
 using DojoDDD.Application.Specifications;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.PuchaseOrders.Commands;
-using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Infra.DbContext.Models;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +15,7 @@ namespace DojoDDD.Api.Controllers.v2
     public class PurchaseOrdersController : Controller
     {
         [HttpGet("{orderId}")]
-        public async Task<IActionResult> Get([FromRoute] string orderId, [FromServices] IQueryableRepository<PurchaseOrder> repository)
+        public async Task<IActionResult> Get([FromRoute] string orderId, [FromServices] IQueryableRepository<PurchaseOrderQueryModel> repository)
         {
             var order = await repository.GetAsync(new FindPurchaseOrderByIdSpec(orderId));
 

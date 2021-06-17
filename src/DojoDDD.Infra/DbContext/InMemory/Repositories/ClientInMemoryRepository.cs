@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.Abstractions.Specifications;
 using DojoDDD.Domain.Clients.Entities;
+using DojoDDD.Infra.DbContext.Models;
 
 namespace DojoDDD.Infra.DbContext.InMemory.Repositories
 {
-    public class ClientInMemoryRepository : IQueryableRepository<Client>
+    public class ClientInMemoryRepository : IEntityRepository<Client>, IQueryableRepository<ClientModel>
     {
         private readonly DataStore _dataStore;
 
@@ -18,10 +19,10 @@ namespace DojoDDD.Infra.DbContext.InMemory.Repositories
         {
             var client = _dataStore.Clientes.FirstOrDefault(c => id.Equals(c.Id));
 
-            return Task.FromResult(client);
+            return Task.FromResult((Client) client);
         }
 
-        public async Task<Client> GetAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<Client>
+        public async Task<ClientModel> GetAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<ClientModel>
         {
             if(spec is null) throw new ArgumentNullException(nameof(spec));
 
@@ -30,7 +31,7 @@ namespace DojoDDD.Infra.DbContext.InMemory.Repositories
             return clientes.FirstOrDefault();
         }
 
-        public async Task<ICollection<Client>> GetManyAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<Client>
+        public async Task<ICollection<ClientModel>> GetManyAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<ClientModel>
         {
             if(spec is null) throw new ArgumentNullException(nameof(spec));
 
@@ -39,6 +40,8 @@ namespace DojoDDD.Infra.DbContext.InMemory.Repositories
             return await Task.FromResult(clientes).ConfigureAwait(false);
         }
 
-        public async Task<ICollection<Client>> GetAllAsync() => await Task.FromResult(_dataStore.Clientes).ConfigureAwait(false);
+        public async Task<ICollection<ClientModel>> GetAllAsync() => await Task.FromResult(_dataStore.Clientes).ConfigureAwait(false);
+
+        public Task SaveAsync(Client entity) => throw new NotImplementedException();
     }
 }

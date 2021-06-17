@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DojoDDD.Application.Specifications;
 using DojoDDD.Domain.Abstractions.Repositories;
-using DojoDDD.Domain.Products.Entities;
+using DojoDDD.Infra.DbContext.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DojoDDD.Api.Controllers.v2
@@ -12,9 +12,9 @@ namespace DojoDDD.Api.Controllers.v2
     [ApiVersion("2.0")]
     public class ProductsController : Controller
     {
-        private readonly IQueryableRepository<Product> _repository;
+        private readonly IQueryableRepository<ProductModel> _repository;
 
-        public ProductsController(IQueryableRepository<Product> repository) => _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        public ProductsController(IQueryableRepository<ProductModel> repository) => _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -31,7 +31,7 @@ namespace DojoDDD.Api.Controllers.v2
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
 
-            var product = await _repository.GetAsync(new FindProductByIdSpec(id)).ConfigureAwait(false);
+            var product = await _repository.GetAsync(new FindProductByIdSpec(id.ToString())).ConfigureAwait(false);
 
             if (product is null)
                 return NotFound();

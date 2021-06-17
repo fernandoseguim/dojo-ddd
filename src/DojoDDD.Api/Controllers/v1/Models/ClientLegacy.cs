@@ -1,4 +1,4 @@
-﻿using DojoDDD.Domain.Clients.Entities;
+﻿using DojoDDD.Infra.DbContext.Models;
 
 namespace DojoDDD.Api.Controllers.v1.Models
 {
@@ -10,7 +10,7 @@ namespace DojoDDD.Api.Controllers.v1.Models
         public int Idade { get; set; }
         public decimal Saldo { get; set; }
 
-        public static implicit operator ClientLegacy(Client entity)
+        public static implicit operator ClientLegacy(ClientModel entity)
             => entity is null ? null : new ClientLegacy
             {
                     Id = entity.Id,

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DojoDDD.Domain.Abstractions.Entities;
 using DojoDDD.Domain.PuchaseOrders.Errors;
 using FluentResults;
 using FluentValidation;

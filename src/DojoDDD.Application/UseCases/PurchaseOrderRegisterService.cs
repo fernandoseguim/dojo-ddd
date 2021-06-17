@@ -6,7 +6,6 @@ using DojoDDD.Domain.PuchaseOrders.Commands;
 using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.PuchaseOrders.Events;
 using DojoDDD.Domain.PuchaseOrders.Handlers;
-using MassTransit;
 
 namespace DojoDDD.Application.UseCases
 {

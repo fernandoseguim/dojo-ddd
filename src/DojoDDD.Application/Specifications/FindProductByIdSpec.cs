@@ -1,11 +1,11 @@
 ﻿using DojoDDD.Domain.Abstractions.Specifications;
-using DojoDDD.Domain.Products.Entities;
+using DojoDDD.Infra.DbContext.Models;
 
 namespace DojoDDD.Application.Specifications
 {
-    public class FindProductByIdSpec : QuerySpecification<Product>
+    public class FindProductByIdSpec : QuerySpecification<ProductModel>
     {
-        public FindProductByIdSpec(int id) : base(data => data.Id == id)
+        public FindProductByIdSpec(string id) : base(data => data.Id == id)
         {
         }
     }

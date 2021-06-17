@@ -1,5 +1,5 @@
 ﻿using System;
-using DojoDDD.Domain.Products.Entities;
+using DojoDDD.Infra.DbContext.Models;
 
 namespace DojoDDD.Api.Controllers.v1.Models
 {
@@ -11,10 +11,10 @@ namespace DojoDDD.Api.Controllers.v1.Models
         public string PrecoUnitario { get; set; }
         public int ValorMinimoDeCompra { get; set; }
 
-        public static implicit operator ProductLegacy(Product entity)
+        public static implicit operator ProductLegacy(ProductModel entity)
             => entity is null ? null : new ProductLegacy
             {
-                    Id = entity.Id,
+                    Id = int.Parse(entity.Id),
                     Descricao = entity.Description,
                     Estoque = entity.AvailableQuantity,
                     PrecoUnitario = entity.UnitPrice.ToString("0.00"),

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using DojoDDD.Api.Controllers.v1.Models;
 using DojoDDD.Application.Specifications;
 using DojoDDD.Domain.Abstractions.Repositories;
-using DojoDDD.Domain.Clients.Entities;
+using DojoDDD.Infra.DbContext.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DojoDDD.Api.Controllers.v1
@@ -15,9 +15,9 @@ namespace DojoDDD.Api.Controllers.v1
     [Obsolete("Prefer use v2")]
     public class ClientsController : Controller
     {
-        private readonly IQueryableRepository<Client> _repository;
+        private readonly IQueryableRepository<ClientModel> _repository;
 
-        public ClientsController(IQueryableRepository<Client> repository) => _repository = repository;
+        public ClientsController(IQueryableRepository<ClientModel> repository) => _repository = repository;
 
         [HttpGet]
         public async Task<IActionResult> Get()

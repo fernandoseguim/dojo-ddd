@@ -1,4 +1,5 @@
-﻿using DojoDDD.Api.Extensions.HealthCheck;
+﻿using DojoDDD.Api.Extensions.DbContext;
+using DojoDDD.Api.Extensions.HealthCheck;
 using DojoDDD.Api.Extensions.MassTransit;
 using DojoDDD.Api.Extensions.Swagger;
 using DojoDDD.Api.Extensions.Versioning;
@@ -10,9 +11,9 @@ using DojoDDD.Domain.Products.Entities;
 using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.PuchaseOrders.Handlers;
 using DojoDDD.Domain.PuchaseOrders.Rules.RuleBooks;
-using DojoDDD.Infra.DbContext;
 using DojoDDD.Infra.DbContext.InMemory;
 using DojoDDD.Infra.DbContext.InMemory.Repositories;
+using DojoDDD.Infra.DbContext.Models;
 using DojoDDD.Infra.Providers.BusinessPeriod;
 using DojoDDD.Infra.Serializers;
 using Elastic.Apm.NetCoreAll;
@@ -45,14 +46,9 @@ namespace DojoDDD.Api
             services.AddVersioning();
             services.AddSwaggerDocumentation();
 
-            services.AddLogging();
             services.AddHealthChecks(_configuration);
 
-            services.AddSingleton<DataStore>();
-            services.AddSingleton<IQueryableRepository<Client>, ClientInMemoryRepository>();
-            services.AddSingleton<IQueryableRepository<Product>, ProductsInMemoryRepository>();
-            services.AddSingleton<IQueryableRepository<PurchaseOrder>, PurchaseOrderInMemoryRepository>();
-            services.AddSingleton<IEntityRepository<PurchaseOrder>, PurchaseOrderInMemoryRepository>();
+            services.AddInMemoryRepositories();
 
             services.AddSingleton<RulesForRegisterNewPurchaseOrder>();
             services.AddScoped<IPurchaseOrderRegisterCommandHandler, PurchaseOrderRegisterCommandHandler>();

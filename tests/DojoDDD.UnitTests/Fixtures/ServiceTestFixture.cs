@@ -13,14 +13,14 @@ namespace DojoDDD.UnitTests.Fixtures
         public ServiceTestFixture()
         {
             var fixture = FixtureFactory.Create();
-            ClientsRepository = fixture.Create<IQueryableRepository<Client>>();
-            ProductsRepository = fixture.Create<IQueryableRepository<Product>>();
+            ClientsRepository = fixture.Create<IEntityRepository<Client>>();
+            ProductsRepository = fixture.Create<IEntityRepository<Product>>();
             OrderRepository = fixture.Create<IEntityRepository<PurchaseOrder>>();
             RulesForRegisterNewPurchaseOrder = Substitute.For<RulesForRegisterNewPurchaseOrder>();
         }
 
-        public IQueryableRepository<Client> ClientsRepository { get; }
-        public IQueryableRepository<Product> ProductsRepository { get; }
+        public IEntityRepository<Client> ClientsRepository { get; }
+        public IEntityRepository<Product> ProductsRepository { get; }
         public IEntityRepository<PurchaseOrder> OrderRepository { get; }
         public RulesForRegisterNewPurchaseOrder RulesForRegisterNewPurchaseOrder { get; }
     }
