@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace DojoDDD.Domain.ValueObjects
 {
@@ -49,5 +50,22 @@ namespace DojoDDD.Domain.ValueObjects
 
         public override int GetHashCode()
             => HashCode.Combine(ZipCode, AddressLine, BuildingNumber, Neighborhood, Country, State, City, Complement);
+
+        public override string ToString()
+        {
+            const string separator = "-";
+            var builder = new StringBuilder();
+
+            builder.Append($"CEP. {ZipCode} {separator} ");
+            builder.Append($"Rua/Av. {AddressLine} {separator} ");
+            builder.Append($"Numero. {BuildingNumber} {separator} ");
+            builder.Append($"Complemento. {Complement} {separator} ");
+            builder.Append($"Bairro. {Neighborhood} {separator} ");
+            builder.Append($"Cidade. {City} {separator} ");
+            builder.Append($"Estado. {State} {separator} ");
+            builder.Append($"Pais. {Country}");
+
+            return builder.ToString();
+        }
     }
 }

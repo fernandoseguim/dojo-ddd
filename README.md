@@ -60,4 +60,4 @@ hangfire: http://localhost:23001/hangfire
 
 swagger: http://localhost:23001/swagger
 
-OBS: Para usar a versão 2.0 da API lembre-se de incluir o header Accept com o valor `application/vnd.dojo.v2+json`
+OBS: Para usar a versão 2.0 da API lembre-se de incluir o header `api-version` com o valor `2`

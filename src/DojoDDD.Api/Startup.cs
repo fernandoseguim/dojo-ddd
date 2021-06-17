@@ -1,5 +1,7 @@
 ﻿using DojoDDD.Api.Extensions.HealthCheck;
 using DojoDDD.Api.Extensions.MassTransit;
+using DojoDDD.Api.Extensions.Swagger;
+using DojoDDD.Api.Extensions.Versioning;
 using DojoDDD.Application.Abstractions.UseCases;
 using DojoDDD.Application.UseCases;
 using DojoDDD.Domain.Abstractions.Repositories;
@@ -16,6 +18,7 @@ using Elastic.Apm.NetCoreAll;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,6 +41,8 @@ namespace DojoDDD.Api
                         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                     });;
 
+            services.AddVersioning();
+            services.AddSwaggerDocumentation();
             services.AddLogging();
             services.AddHealthChecks(_configuration);
 
@@ -60,7 +65,7 @@ namespace DojoDDD.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             app.UseAllElasticApm(_configuration);
 
@@ -75,6 +80,8 @@ namespace DojoDDD.Api
             {
                 endpoints.MapControllers();
             });
+
+            app.UseVersionedSwagger(provider);
         }
     }
 }

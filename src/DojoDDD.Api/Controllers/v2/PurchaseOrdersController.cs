@@ -1,18 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
-using DojoDDD.Application;
+﻿using System.Threading.Tasks;
 using DojoDDD.Application.Abstractions.UseCases;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.PuchaseOrders.Commands;
 using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.PuchaseOrders.Specifications;
 using MassTransit;
+using Microsoft.AspNetCore.Mvc;
 
-namespace DojoDDD.Api.Controllers
+namespace DojoDDD.Api.Controllers.v2
 {
     [ApiController]
-    [Route("ordem-compras")]
+    [Route("ordens-compra")]
+    [ApiVersion("2.0")]
     public class PurchaseOrdersController : Controller
     {
         [HttpGet("{orderId}")]

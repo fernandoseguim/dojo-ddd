@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Domain.Products.Specifications;
+using Microsoft.AspNetCore.Mvc;
 
-namespace DojoDDD.Api.Controllers
+namespace DojoDDD.Api.Controllers.v2
 {
     [ApiController]
     [Route("clientes")]
+    [ApiVersion("2.0")]
     public class ClientsController : Controller
     {
         private readonly IQueryableRepository<Client> _repository;
