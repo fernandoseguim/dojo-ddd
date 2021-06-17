@@ -2,13 +2,10 @@
 using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.Clients.Entities;
-using DojoDDD.Domain.Clients.Specifications;
 using DojoDDD.Domain.Products.Entities;
-using DojoDDD.Domain.Products.Specifications;
 using DojoDDD.Domain.PuchaseOrders.Commands;
 using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.PuchaseOrders.Rules.RuleBooks;
-using DojoDDD.Domain.PuchaseOrders.Specifications;
 using FluentResults;
 
 namespace DojoDDD.Domain.PuchaseOrders.Handlers
@@ -33,8 +30,8 @@ namespace DojoDDD.Domain.PuchaseOrders.Handlers
 
         public async Task<Result<PurchaseOrder>> HandleAsync(PurchaseOrderRegisterCommand command)
         {
-            var client = await _clientsRepository.GetAsync(new FindClientByIdSpec(command.ClientId));
-            var product = await _productsRepository.GetAsync(new FindProductByIdSpec(command.ProductId));
+            var client = await _clientsRepository.GetAsync(command.ClientId);
+            var product = await _productsRepository.GetAsync(command.ProductId.ToString());
 
             var order = PurchaseOrder.Create(client, product, command.RequestedQuantity);
 
@@ -50,7 +47,7 @@ namespace DojoDDD.Domain.PuchaseOrders.Handlers
 
         public async Task<bool> ChangeStatusToAnalyzing(string orderId)
         {
-            var ordemDeCompra = await _orderRepository.GetAsync(new FindPurchaseOrderByIdSpec(orderId));
+            var ordemDeCompra = await _orderRepository.GetAsync(orderId);
 
             return true;
         }

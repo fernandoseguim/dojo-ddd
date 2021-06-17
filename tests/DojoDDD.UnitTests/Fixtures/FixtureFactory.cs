@@ -9,7 +9,7 @@ using DojoDDD.Domain.PuchaseOrders.Commands;
 using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.PuchaseOrders.Rules.RuleBooks;
 using DojoDDD.Domain.ValueObjects;
-using DojoDDD.Infra.DbContext;
+using DojoDDD.Infra.DbContext.InMemory;
 using NSubstitute;
 
 namespace DojoDDD.UnitTests.Fixtures

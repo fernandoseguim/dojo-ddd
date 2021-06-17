@@ -6,7 +6,7 @@ using DojoDDD.Domain.Products.Entities;
 using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.ValueObjects;
 
-namespace DojoDDD.Infra.DbContext
+namespace DojoDDD.Infra.DbContext.InMemory
 {
     public class DataStore
     {

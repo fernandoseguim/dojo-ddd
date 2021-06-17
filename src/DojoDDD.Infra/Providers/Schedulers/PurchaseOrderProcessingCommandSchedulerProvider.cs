@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DojoDDD.Domain.Abstractions.Commands;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.PuchaseOrders.Commands;
 using DojoDDD.Domain.PuchaseOrders.Entities;
-using DojoDDD.Domain.PuchaseOrders.Specifications;
 using MassTransit;
+
 
 namespace DojoDDD.Infra.Providers.Schedulers
 {
@@ -24,7 +23,7 @@ namespace DojoDDD.Infra.Providers.Schedulers
 
         public async Task Process(PurchaseOrderProcessingCommand command)
         {
-            var order = await _repository.GetAsync(new FindPurchaseOrderByIdSpec(command.OrderId));
+            var order = await _repository.GetAsync(command.OrderId);
 
             await order.Schedule(async () =>
             {

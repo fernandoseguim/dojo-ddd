@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DojoDDD.Domain.Clients.Entities;
-using DojoDDD.Domain.Clients.Specifications;
 using DojoDDD.Domain.Products.Entities;
-using DojoDDD.Domain.Products.Specifications;
 using DojoDDD.Domain.PuchaseOrders.Commands;
 using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.PuchaseOrders.Handlers;
@@ -29,8 +27,8 @@ namespace DojoDDD.UnitTests.Handlers
         [AutoNSubstituteData]
         public async Task ShouldReturnResultSuccess(PurchaseOrderRegisterCommand command, Client client, Product product, PurchaseOrder order)
         {
-            _fixture.ClientsRepository.GetAsync(Arg.Any<FindClientByIdSpec>()).ReturnsForAnyArgs(client);
-            _fixture.ProductsRepository.GetAsync(Arg.Any<FindProductByIdSpec>()).ReturnsForAnyArgs(product);
+            _fixture.ClientsRepository.GetAsync(Arg.Any<string>()).ReturnsForAnyArgs(client);
+            _fixture.ProductsRepository.GetAsync(Arg.Any<string>()).ReturnsForAnyArgs(product);
             _fixture.RulesForRegisterNewPurchaseOrder.ApplyRules(order).ReturnsForAnyArgs(Result.Ok(order));
 
             var result = await _sut.HandleAsync(command);
@@ -42,8 +40,8 @@ namespace DojoDDD.UnitTests.Handlers
         [AutoNSubstituteData]
         public async Task ShouldReturnResultFail(PurchaseOrderRegisterCommand command, Client client, Product product, PurchaseOrder order)
         {
-            _fixture.ClientsRepository.GetAsync(Arg.Any<FindClientByIdSpec>()).ReturnsForAnyArgs(client);
-            _fixture.ProductsRepository.GetAsync(Arg.Any<FindProductByIdSpec>()).ReturnsForAnyArgs(product);
+            _fixture.ClientsRepository.GetAsync(Arg.Any<string>()).ReturnsForAnyArgs(client);
+            _fixture.ProductsRepository.GetAsync(Arg.Any<string>()).ReturnsForAnyArgs(product);
             _fixture.RulesForRegisterNewPurchaseOrder.ApplyRules(order).ReturnsForAnyArgs(Result.Fail<PurchaseOrder>(new Error("some error")));
 
             var result = await _sut.HandleAsync(command);

@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Repositories;
+using DojoDDD.Domain.Abstractions.Specifications;
 using DojoDDD.Domain.Clients.Entities;
-using DojoDDD.Infra.DbContext;
-using NSpecifications;
 
-namespace DojoDDD.Infra.Repositories
+namespace DojoDDD.Infra.DbContext.InMemory.Repositories
 {
-    public class ClientRepository : IQueryableRepository<Client>
+    public class ClientInMemoryRepository : IQueryableRepository<Client>
     {
         private readonly DataStore _dataStore;
 
-        public ClientRepository(DataStore dataStore) => _dataStore = dataStore;
+        public ClientInMemoryRepository(DataStore dataStore) => _dataStore = dataStore;
 
-        public async Task<Client> GetAsync<TSpec>(TSpec spec) where TSpec : ASpec<Client>
+        public Task<Client> GetAsync(string id)
+        {
+            var client = _dataStore.Clientes.FirstOrDefault(c => id.Equals(c.Id));
+
+            return Task.FromResult(client);
+        }
+
+        public async Task<Client> GetAsync<TSpec>(TSpec spec) where TSpec : Specification<Client>
         {
             if(spec is null) throw new ArgumentNullException(nameof(spec));
 
@@ -24,7 +30,7 @@ namespace DojoDDD.Infra.Repositories
             return clientes.FirstOrDefault();
         }
 
-        public async Task<ICollection<Client>> GetManyAsync<TSpec>(TSpec spec) where TSpec : ASpec<Client>
+        public async Task<ICollection<Client>> GetManyAsync<TSpec>(TSpec spec) where TSpec : Specification<Client>
         {
             if(spec is null) throw new ArgumentNullException(nameof(spec));
 

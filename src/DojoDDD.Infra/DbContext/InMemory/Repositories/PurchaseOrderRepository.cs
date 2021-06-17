@@ -3,25 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Repositories;
+using DojoDDD.Domain.Abstractions.Specifications;
 using DojoDDD.Domain.PuchaseOrders.Entities;
-using DojoDDD.Infra.DbContext;
-using NSpecifications;
 
-namespace DojoDDD.Infra.Repositories
+namespace DojoDDD.Infra.DbContext.InMemory.Repositories
 {
-    public class PurchaseOrderRepository : IEntityRepository<PurchaseOrder>
+    public class PurchaseOrderInMemoryRepository : IEntityRepository<PurchaseOrder>
     {
         private readonly DataStore _dataStore;
 
-        public PurchaseOrderRepository(DataStore dataStore) => _dataStore = dataStore ?? throw new ArgumentNullException(nameof(dataStore));
+        public PurchaseOrderInMemoryRepository(DataStore dataStore) => _dataStore = dataStore ?? throw new ArgumentNullException(nameof(dataStore));
 
-        public async Task<PurchaseOrder> GetAsync<TSpec>(TSpec spec) where TSpec : ASpec<PurchaseOrder>
+        public Task<PurchaseOrder> GetAsync(string id)
+        {
+            var client = _dataStore.OrdensCompras.FirstOrDefault(c => id.Equals(c.Id));
+
+            return Task.FromResult(client);
+        }
+
+        public async Task<PurchaseOrder> GetAsync<TSpec>(TSpec spec) where TSpec : Specification<PurchaseOrder>
         {
             var orders = await GetManyAsync(spec);
             return orders.FirstOrDefault();
         }
 
-        public async Task<ICollection<PurchaseOrder>> GetManyAsync<TSpec>(TSpec spec) where TSpec : ASpec<PurchaseOrder>
+        public async Task<ICollection<PurchaseOrder>> GetManyAsync<TSpec>(TSpec spec) where TSpec : Specification<PurchaseOrder>
         {
             if(spec is null)
                 return await Task.FromResult(_dataStore.OrdensCompras).ConfigureAwait(false);
