@@ -1,5 +1,6 @@
 ﻿using System;
 using DojoDDD.Domain.Abstractions.Commands;
+using DojoDDD.Domain.ValueObjects;
 using Newtonsoft.Json;
 
 namespace DojoDDD.Domain.PuchaseOrders.Commands
@@ -10,14 +11,14 @@ namespace DojoDDD.Domain.PuchaseOrders.Commands
             => OrderId = orderId;
 
         [JsonConstructor]
-        public PurchaseOrderProcessingCommand(string orderId, DateTime scheduleTo)
+        public PurchaseOrderProcessingCommand(string orderId, Scheduling scheduling)
         {
             OrderId = orderId;
-            ScheduleTo = scheduleTo;
+            Scheduling = scheduling;
         }
 
         public string OrderId { get; }
 
-        public DateTime ScheduleTo { get; }
+        public Scheduling Scheduling { get; }
     }
 }

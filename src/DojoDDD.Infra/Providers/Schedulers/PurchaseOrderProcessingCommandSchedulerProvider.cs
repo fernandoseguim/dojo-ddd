@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.PuchaseOrders.Commands;
 using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Domain.ValueObjects;
 using MassTransit;
 
 
@@ -27,10 +28,8 @@ namespace DojoDDD.Infra.Providers.Schedulers
 
             await order.Schedule(async () =>
             {
-                var scheduledTo = command.ScheduleTo;
-                await _scheduler.SchedulePublish(scheduledTo, command);
-
-                return scheduledTo;
+                var scheduling = await _scheduler.SchedulePublish(command.Scheduling.Date, command);
+                return new Scheduling(scheduling.TokenId, scheduling.ScheduledTime);
             });
 
             await _repository.SaveAsync(order);

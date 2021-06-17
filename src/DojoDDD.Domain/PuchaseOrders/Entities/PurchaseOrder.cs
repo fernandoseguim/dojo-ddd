@@ -4,11 +4,26 @@ using DojoDDD.Domain.Abstractions.Entities;
 using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Domain.Products.Entities;
 using DojoDDD.Domain.PuchaseOrders.Enums;
+using DojoDDD.Domain.ValueObjects;
 
 namespace DojoDDD.Domain.PuchaseOrders.Entities
 {
     public class PurchaseOrder : Entity
     {
+        private readonly Scheduling _schedulingd;
+
+        public PurchaseOrder(string id, Product product, Client client, int requestedQuantity, decimal orderAmount, OrderStatus status, Scheduling scheduling)
+        {
+            _schedulingd = scheduling;
+            Id = id;
+            Product = product;
+            Client = client;
+            RequestedQuantity = requestedQuantity;
+            OrderAmount = orderAmount;
+            Status = status;
+            Scheduling = scheduling;
+        }
+
         private PurchaseOrder() { }
 
         public string Id { get; private set; }
@@ -18,7 +33,7 @@ namespace DojoDDD.Domain.PuchaseOrders.Entities
         public int RequestedQuantity { get; private set; }
         public decimal OrderAmount { get; private set; }
         public OrderStatus Status { get; private set; }
-        public DateTime? ScheduledTo { get; private set; }
+        public Scheduling Scheduling { get; private set; }
 
         public static PurchaseOrder Create(Client client, Product product, int requestedQuantity)
         {
@@ -36,21 +51,23 @@ namespace DojoDDD.Domain.PuchaseOrders.Entities
             return order;
         }
 
-        public async Task Schedule(Func<Task<DateTime>> scheduler)
+        public async Task Schedule(Func<Task<Scheduling>> scheduler)
         {
             UpdatedAt = DateTime.UtcNow;
             Status = OrderStatus.Scheduled;
-            ScheduledTo = await scheduler();
+            Scheduling = await scheduler();
         }
 
         public void Cancel()
         {
+            Scheduling = null;
             Status = OrderStatus.Canceled;
             UpdatedAt = DateTime.UtcNow;
         }
 
         public void Close()
         {
+            Scheduling = null;
             Status = OrderStatus.Closed;
             UpdatedAt = DateTime.UtcNow;
         }

@@ -4,6 +4,7 @@ using DojoDDD.Application.Abstractions.UseCases;
 using DojoDDD.Domain.PuchaseOrders.Commands;
 using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.PuchaseOrders.Events;
+using DojoDDD.Domain.ValueObjects;
 using DojoDDD.Infra.Providers.BusinessPeriod;
 using DojoDDD.Infra.Providers.Schedulers;
 using Microsoft.AspNetCore.Hosting;
@@ -31,8 +32,8 @@ namespace DojoDDD.Application.UseCases
             if(period.IsOpen)
                 return;
 
-            var scheduleTo = _environment.IsDevelopment() ? DateTime.UtcNow.AddMinutes(1) : period.NextWindow.StartTime.AddMinutes(-15);
-            await _scheduler.Process(new PurchaseOrderProcessingCommand(command.OrderId, scheduleTo));
+            var date = _environment.IsDevelopment() ? DateTime.UtcNow.AddMinutes(1) : period.NextWindow.StartTime.AddMinutes(-15);
+            await _scheduler.Process(new PurchaseOrderProcessingCommand(command.OrderId, new Scheduling(date)));
         }
     }
 }

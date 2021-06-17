@@ -3,13 +3,14 @@ using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Domain.Products.Entities;
 using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.PuchaseOrders.Enums;
+using DojoDDD.Domain.ValueObjects;
 
 namespace DojoDDD.Infra.DbContext.Models
 {
     public class PurchaseOrderInMemoryModel : PurchaseOrderQueryModel
     {
         public static explicit operator PurchaseOrder(PurchaseOrderInMemoryModel model)
-            => model is null ? null : new PurchaseOrder(model.Id, (Product) model.Product, (Client) model.Client, model.RequestedQuantity, model.OrderAmount, model.Status, model.ScheduledTo);
+            => model is null ? null : new PurchaseOrder(model.Id, (Product) model.Product, (Client) model.Client, model.RequestedQuantity, model.OrderAmount, model.Status, model.Scheduling);
 
         public static implicit operator PurchaseOrderInMemoryModel(PurchaseOrder entity)
             => entity is null ? null : new PurchaseOrderInMemoryModel
@@ -20,7 +21,7 @@ namespace DojoDDD.Infra.DbContext.Models
                     RequestedQuantity = entity.RequestedQuantity,
                     OrderAmount = entity.OrderAmount,
                     Status = entity.Status,
-                    ScheduledTo = entity.ScheduledTo
+                    Scheduling = entity.Scheduling
             };
     }
 
@@ -32,7 +33,7 @@ namespace DojoDDD.Infra.DbContext.Models
         public int RequestedQuantity { get; set; }
         public decimal OrderAmount { get; set; }
         public OrderStatus Status { get; set; }
-        public DateTime? ScheduledTo { get; set; }
+        public Scheduling Scheduling { get; set; }
 
         public static implicit operator PurchaseOrderModel(PurchaseOrder entity)
             => entity is null ? null : new PurchaseOrderModel
@@ -43,7 +44,7 @@ namespace DojoDDD.Infra.DbContext.Models
                     RequestedQuantity = entity.RequestedQuantity,
                     OrderAmount = entity.OrderAmount,
                     Status = entity.Status,
-                    ScheduledTo = entity.ScheduledTo
+                    Scheduling = entity.Scheduling
             };
     }
 
@@ -55,12 +56,12 @@ namespace DojoDDD.Infra.DbContext.Models
         public int RequestedQuantity { get; set; }
         public decimal OrderAmount { get; set; }
         public OrderStatus Status { get; set; }
-        public DateTime? ScheduledTo { get; set; }
+        public Scheduling Scheduling { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
         public static explicit operator PurchaseOrder(PurchaseOrderQueryModel model)
-            => model is null ? null : new PurchaseOrder(model.Id, (Product) model.Product, (Client) model.Client, model.RequestedQuantity, model.OrderAmount, model.Status, model.ScheduledTo);
+            => model is null ? null : new PurchaseOrder(model.Id, (Product) model.Product, (Client) model.Client, model.RequestedQuantity, model.OrderAmount, model.Status, model.Scheduling);
 
         // public static implicit operator PurchaseOrderModelB(PurchaseOrder entity)
         //     => entity is null ? null : new PurchaseOrderModelB

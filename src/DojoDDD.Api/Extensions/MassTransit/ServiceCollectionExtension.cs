@@ -7,7 +7,6 @@ using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.PuchaseOrders.Events;
 using DojoDDD.Infra.Providers.Schedulers;
 using Hangfire;
-using Hangfire.MemoryStorage;
 using Hangfire.Redis;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
@@ -18,13 +17,14 @@ using StackExchange.Redis;
 namespace DojoDDD.Api.Extensions.MassTransit
 {
     [ExcludeFromCodeCoverage]
-    public static class MassTransitExtension
+    public static class ServiceCollectionExtension
     {
         public static void AddMassTransitWithRabbitMq(this IServiceCollection services, IConfiguration configuration)
         {
-            // var connection = ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis"));
-            // var options = new RedisStorageOptions { Prefix = configuration.GetSection("Redis").GetValue<string>("Prefix") };
-            services.AddHangfire(c => c.UseMemoryStorage());
+            var redis = configuration.GetRedisClusterConnection();
+            var connection = ConnectionMultiplexer.Connect(redis.Host);
+            var options = new RedisStorageOptions { Prefix = redis.Prefixes["Hangfire"] };
+            services.AddHangfire(c => c.UseRedisStorage(connection, options));
 
             services.AddMassTransit(configure =>
             {
@@ -33,7 +33,7 @@ namespace DojoDDD.Api.Extensions.MassTransit
 
                 configure.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(bus =>
                 {
-                    var rabbitConfiguration = configuration.GetRabbitMqClusterConfiguration();
+                    var rabbitConfiguration = configuration.GetRabbitMqClusterConnection();
                     var uri = new Uri(rabbitConfiguration.Host);
 
                     bus.Host(uri, rabbitMq =>
