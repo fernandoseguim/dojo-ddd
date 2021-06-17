@@ -21,7 +21,7 @@ namespace DojoDDD.Infra.DbContext.InMemory.Repositories
             return Task.FromResult(product);
         }
 
-        public async Task<Product> GetAsync<TSpec>(TSpec spec) where TSpec : Specification<Product>
+        public async Task<Product> GetAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<Product>
         {
             if(spec is null) throw new ArgumentNullException(nameof(spec));
 
@@ -29,7 +29,7 @@ namespace DojoDDD.Infra.DbContext.InMemory.Repositories
             return products.FirstOrDefault();
         }
 
-        public async Task<ICollection<Product>> GetManyAsync<TSpec>(TSpec spec) where TSpec : Specification<Product>
+        public async Task<ICollection<Product>> GetManyAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<Product>
         {
             if(spec is null) throw new ArgumentNullException(nameof(spec));
 

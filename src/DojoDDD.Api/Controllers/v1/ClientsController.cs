@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DojoDDD.Api.Controllers.v1.Models;
+using DojoDDD.Application.Specifications;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.Clients.Entities;
-using DojoDDD.Domain.Products.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DojoDDD.Api.Controllers.v1

@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using DojoDDD.Application.Abstractions.UseCases;
+using DojoDDD.Application.Specifications;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.PuchaseOrders.Commands;
 using DojoDDD.Domain.PuchaseOrders.Entities;
-using DojoDDD.Domain.PuchaseOrders.Specifications;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using NSpecifications;
+using DojoDDD.Domain.Abstractions.Specifications;
 
 namespace DojoDDD.Domain.Abstractions.Repositories
 {
@@ -8,9 +8,9 @@ namespace DojoDDD.Domain.Abstractions.Repositories
     {
         Task<TQueryResult> GetAsync(string id);
 
-        Task<TQueryResult> GetAsync<TSpec>(TSpec spec) where TSpec : ASpec<TQueryResult>;
+        Task<TQueryResult> GetAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<TQueryResult>;
 
-        Task<ICollection<TQueryResult>> GetManyAsync<TSpec>(TSpec spec) where TSpec : ASpec<TQueryResult>;
+        Task<ICollection<TQueryResult>> GetManyAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<TQueryResult>;
 
         Task<ICollection<TQueryResult>> GetAllAsync();
     }

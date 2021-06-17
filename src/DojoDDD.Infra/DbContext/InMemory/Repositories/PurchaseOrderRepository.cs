@@ -21,13 +21,13 @@ namespace DojoDDD.Infra.DbContext.InMemory.Repositories
             return Task.FromResult(client);
         }
 
-        public async Task<PurchaseOrder> GetAsync<TSpec>(TSpec spec) where TSpec : Specification<PurchaseOrder>
+        public async Task<PurchaseOrder> GetAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<PurchaseOrder>
         {
             var orders = await GetManyAsync(spec);
             return orders.FirstOrDefault();
         }
 
-        public async Task<ICollection<PurchaseOrder>> GetManyAsync<TSpec>(TSpec spec) where TSpec : Specification<PurchaseOrder>
+        public async Task<ICollection<PurchaseOrder>> GetManyAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<PurchaseOrder>
         {
             if(spec is null)
                 return await Task.FromResult(_dataStore.OrdensCompras).ConfigureAwait(false);

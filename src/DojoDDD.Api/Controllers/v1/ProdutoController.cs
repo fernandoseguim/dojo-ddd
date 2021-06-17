@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DojoDDD.Api.Controllers.v1.Models;
+using DojoDDD.Application.Specifications;
 using DojoDDD.Domain.Abstractions.Repositories;
-using DojoDDD.Domain.Clients.Specifications;
 using DojoDDD.Domain.Products.Entities;
 using Microsoft.AspNetCore.Mvc;
 
