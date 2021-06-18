@@ -76,11 +76,14 @@ namespace DojoDDD.Api
 
             app.UseRouting();
 
+            app.UseHealthChecks();
+
             app.UseHangfireDashboard();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecksUI();
             });
 
             app.UseVersionedSwagger(provider);

@@ -17,6 +17,13 @@ namespace DojoDDD.Api.Extensions.HealthCheck
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
             });
 
+
+            builder.UseHealthChecks(new PathString("/liveness"), new HealthCheckOptions
+            {
+                    Predicate = registration => registration.Name.Contains("self"),
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+
             return builder;
         }
     }
