@@ -9,7 +9,7 @@ using DojoDDD.Infra.DbContext.Models;
 
 namespace DojoDDD.Infra.DbContext.InMemory.Repositories
 {
-    public class PurchaseOrderInMemoryRepository : IEntityRepository<PurchaseOrder>, IQueryableRepository<PurchaseOrderQueryModel>
+    public class PurchaseOrderInMemoryRepository : IEntityRepository<PurchaseOrder>, IQueryableRepository<PurchaseOrderModel>
     {
         private readonly DataStore _dataStore;
 
@@ -22,13 +22,13 @@ namespace DojoDDD.Infra.DbContext.InMemory.Repositories
             return Task.FromResult((PurchaseOrder) order);
         }
 
-        public async Task<PurchaseOrderQueryModel> GetAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<PurchaseOrderQueryModel>
+        public async Task<PurchaseOrderModel> GetAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<PurchaseOrderModel>
         {
             var orders = await GetManyAsync(spec);
             return orders.FirstOrDefault();
         }
 
-        public async Task<ICollection<PurchaseOrderQueryModel>> GetManyAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<PurchaseOrderQueryModel>
+        public async Task<ICollection<PurchaseOrderModel>> GetManyAsync<TSpec>(TSpec spec) where TSpec : QuerySpecification<PurchaseOrderModel>
         {
             if(spec is null) throw new ArgumentNullException(nameof(spec));
 
@@ -37,9 +37,9 @@ namespace DojoDDD.Infra.DbContext.InMemory.Repositories
             return await Task.FromResult(clientes).ConfigureAwait(false);
         }
 
-        public Task<ICollection<PurchaseOrderQueryModel>> GetAllAsync()
+        public Task<ICollection<PurchaseOrderModel>> GetAllAsync()
         {
-            var orders = (ICollection<PurchaseOrderQueryModel>) _dataStore.OrdensCompras.Select(model => (PurchaseOrderQueryModel) model).ToList();
+            var orders = (ICollection<PurchaseOrderModel>) _dataStore.OrdensCompras.Select(model => (PurchaseOrderModel) model).ToList();
 
             return Task.FromResult(orders);
         }

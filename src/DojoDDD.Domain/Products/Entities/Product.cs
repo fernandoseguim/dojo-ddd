@@ -5,20 +5,37 @@ namespace DojoDDD.Domain.Products.Entities
 {
     public class Product : Entity, IEquatable<Product>
     {
-        public Product(int id, string description, int availableQuantity, decimal unitPrice, decimal purchaseMinAmount)
+        public Product(string id, string description, int availableQuantity, decimal unitPrice, decimal purchaseMinAmount, DateTime createdAt, DateTime? updatedAt)
         {
             Id = id;
             Description = description;
             AvailableQuantity = availableQuantity;
             UnitPrice = unitPrice;
             PurchaseMinAmount = purchaseMinAmount;
+            CreatedAt = createdAt;
+            UpdatedAt = updatedAt;
         }
 
-        public int Id { get;}
+        public string Id { get;}
         public string Description { get;}
-        public int AvailableQuantity { get; }
+        public int AvailableQuantity { get; private set; }
         public decimal UnitPrice { get;}
         public decimal PurchaseMinAmount { get;}
+
+        public static Product Create(string id, string description, int availableQuantity, decimal unitPrice, decimal purchaseMinAmount)
+            => new(id, description, availableQuantity, unitPrice, purchaseMinAmount, DateTime.UtcNow, null);
+
+        public void IncreaseAvailableQuantity(int quantity)
+        {
+            AvailableQuantity += quantity;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void DecreaseAvailableQuantity(int quantity)
+        {
+            AvailableQuantity += quantity;
+            UpdatedAt = DateTime.UtcNow;
+        }
 
         public bool Equals(Product other)
         {
@@ -35,7 +52,7 @@ namespace DojoDDD.Domain.Products.Entities
             return Equals((Product) obj);
         }
 
-        public override int GetHashCode() => Id;
+        public override int GetHashCode() => (Id != null ? Id.GetHashCode() : 0);
 
         public static bool operator ==(Product left, Product right) => Equals(left, right);
 

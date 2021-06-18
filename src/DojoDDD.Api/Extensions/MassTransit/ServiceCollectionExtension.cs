@@ -21,11 +21,6 @@ namespace DojoDDD.Api.Extensions.MassTransit
     {
         public static void AddMassTransitWithRabbitMq(this IServiceCollection services, IConfiguration configuration)
         {
-            var redis = configuration.GetRedisClusterConnection();
-            var connection = ConnectionMultiplexer.Connect(redis.Host);
-            var options = new RedisStorageOptions { Prefix = redis.Prefixes["Hangfire"] };
-            services.AddHangfire(c => c.UseRedisStorage(connection, options));
-
             services.AddMassTransit(configure =>
             {
                 configure.AddConsumer<PurchaseOrderWasRequestedConsumer>();

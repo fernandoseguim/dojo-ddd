@@ -7,9 +7,9 @@ using DojoDDD.Infra.DbContext.InMemory.Repositories;
 using DojoDDD.Infra.DbContext.Models;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DojoDDD.Api.Extensions.DbContext
+namespace DojoDDD.Api.Extensions.DbContext.InMemory
 {
-    public static class RepositoriesExtensions
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddInMemoryRepositories(this IServiceCollection services)
         {
@@ -17,7 +17,7 @@ namespace DojoDDD.Api.Extensions.DbContext
 
             services.AddSingleton<IQueryableRepository<ClientModel>, ClientInMemoryRepository>();
             services.AddSingleton<IQueryableRepository<ProductModel>, ProductsInMemoryRepository>();
-            services.AddSingleton<IQueryableRepository<PurchaseOrderQueryModel>, PurchaseOrderInMemoryRepository>();
+            services.AddSingleton<IQueryableRepository<PurchaseOrderModel>, PurchaseOrderInMemoryRepository>();
 
             services.AddSingleton<IEntityRepository<Client>, ClientInMemoryRepository>();
             services.AddSingleton<IEntityRepository<Product>, ProductsInMemoryRepository>();

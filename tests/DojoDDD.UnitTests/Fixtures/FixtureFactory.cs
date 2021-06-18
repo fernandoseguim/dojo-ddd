@@ -42,7 +42,7 @@ namespace DojoDDD.UnitTests.Fixtures
             {
                 fixture.Register(() => Substitute.For<IQueryableRepository<ClientModel>>());
                 fixture.Register(() => Substitute.For<IQueryableRepository<ProductModel>>());
-                fixture.Register(() => Substitute.For<IQueryableRepository<PurchaseOrderQueryModel>>());
+                fixture.Register(() => Substitute.For<IQueryableRepository<PurchaseOrderModel>>());
 
                 fixture.Register(() => Substitute.For<IEntityRepository<Client>>());
                 fixture.Register(() => Substitute.For<IEntityRepository<Product>>());
@@ -67,10 +67,9 @@ namespace DojoDDD.UnitTests.Fixtures
 
             public void Customize(IFixture fixture)
             {
-                fixture.Register(() => new Product(_faker.UniqueIndex, _faker.Commerce.ProductName(), 1000, decimal.Parse(_faker.Commerce.Price(1, 100, 2)), 500.00M));
+                fixture.Register(() => Product.Create(_faker.UniqueIndex.ToString(), _faker.Commerce.ProductName(), 1000, decimal.Parse(_faker.Commerce.Price(1, 100, 2)), 500.00M));
 
-                fixture.Register(() => new Client(
-                        _faker.Random.Guid().ToString("N"),
+                fixture.Register(() => Client.Create(
                         _faker.Name.FullName(),
                         new Address(
                                 _faker.Address.ZipCode().Replace("-", string.Empty).PadRight(8, '0'),

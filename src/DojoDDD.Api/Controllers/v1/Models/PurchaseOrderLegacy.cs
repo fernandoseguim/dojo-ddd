@@ -15,7 +15,7 @@ namespace DojoDDD.Api.Controllers.v1.Models
         public decimal PrecoUnitario { get; set; }
         public PurchaseOrderStatusLegacy Status { get; set; }
 
-        public static implicit operator PurchaseOrderLegacy(PurchaseOrderQueryModel entity)
+        public static implicit operator PurchaseOrderLegacy(PurchaseOrderModel entity)
             => entity is null ? null : new PurchaseOrderLegacy
             {
                     Id = entity.Id,

@@ -17,7 +17,7 @@ namespace DojoDDD.Api.Controllers.v1
     public class PurchaseOrderController : Controller
     {
         [HttpGet("{idOrdemCompra}")]
-        public async Task<IActionResult> Get([FromRoute] string idOrdemCompra, [FromServices] IQueryableRepository<PurchaseOrderQueryModel> repository)
+        public async Task<IActionResult> Get([FromRoute] string idOrdemCompra, [FromServices] IQueryableRepository<PurchaseOrderModel> repository)
         {
             try
             {

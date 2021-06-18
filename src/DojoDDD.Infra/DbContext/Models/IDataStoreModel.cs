@@ -1,4 +1,4 @@
-﻿namespace DojoDDD.Infra.DbContext
+﻿namespace DojoDDD.Infra.DbContext.Models
 {
     public interface IDataStoreModel
     {

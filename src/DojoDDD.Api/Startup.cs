@@ -1,4 +1,7 @@
-﻿using DojoDDD.Api.Extensions.DbContext;
+﻿using DojoDDD.Api.Extensions.Cache;
+using DojoDDD.Api.Extensions.DbContext;
+using DojoDDD.Api.Extensions.DbContext.InMemory;
+using DojoDDD.Api.Extensions.DbContext.RavenDb;
 using DojoDDD.Api.Extensions.HealthCheck;
 using DojoDDD.Api.Extensions.MassTransit;
 using DojoDDD.Api.Extensions.Swagger;
@@ -48,7 +51,7 @@ namespace DojoDDD.Api
 
             services.AddHealthChecks(_configuration);
 
-            services.AddInMemoryRepositories();
+            services.AddRavenDbRepositories(_configuration);
 
             services.AddSingleton<RulesForRegisterNewPurchaseOrder>();
             services.AddScoped<IPurchaseOrderRegisterCommandHandler, PurchaseOrderRegisterCommandHandler>();
@@ -60,6 +63,7 @@ namespace DojoDDD.Api
             services.AddSingleton<IBusinessPeriodProvider, BusinessPeriodProvider>();
 
             services.AddMassTransitWithRabbitMq(_configuration);
+            services.AddDistributedCache(_configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -17,7 +17,9 @@ namespace DojoDDD.UnitTests.Domain.Rules
         [AutoInlineData(-1)]
         public async Task ShouldReturnProductUnavailableError(int availableQuantity, Product product, Client client, ProductAvailableQuantityMustBeEnough sut)
         {
-            product = new Product(product.Id, product.Description, availableQuantity, product.UnitPrice, product.PurchaseMinAmount);
+            product.DecreaseAvailableQuantity(product.AvailableQuantity);
+            product.IncreaseAvailableQuantity(availableQuantity);
+
             var order = PurchaseOrder.Create(client, product, 1);
 
             var reason = await sut.ApplyFrom(order);

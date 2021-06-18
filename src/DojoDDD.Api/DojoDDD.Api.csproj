@@ -26,8 +26,4 @@
     <ProjectReference Include="..\DojoDDD.Application\DojoDDD.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions" />
-  </ItemGroup>
-
 </Project>

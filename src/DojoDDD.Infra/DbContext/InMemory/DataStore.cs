@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Bogus;
 using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Domain.Products.Entities;
-using DojoDDD.Domain.PuchaseOrders.Entities;
 using DojoDDD.Domain.ValueObjects;
 using DojoDDD.Infra.DbContext.Models;
 
@@ -25,8 +25,7 @@ namespace DojoDDD.Infra.DbContext.InMemory
         {
             var clientes = new Faker<Client>()
                     .CustomInstantiator(f =>
-                            new Client(
-                                    f.Random.Guid().ToString("N"),
+                            Client.Create(
                                     f.Name.FullName(),
                                     new Address(
                                             f.Address.ZipCode().Replace("-", string.Empty).PadRight(8, '0'),
@@ -44,7 +43,7 @@ namespace DojoDDD.Infra.DbContext.InMemory
             Clientes = clientes.Select(client => (ClientModel)client).ToList();
 
             var produtos = new Faker<Product>()
-                    .CustomInstantiator(f => new Product(f.UniqueIndex, f.Commerce.ProductName(), 1000, decimal.Parse(f.Commerce.Price(1, 100, 2)), 500.00M))
+                    .CustomInstantiator(f => Product.Create(f.UniqueIndex.ToString(), f.Commerce.ProductName(), 1000, decimal.Parse(f.Commerce.Price(1, 100, 2)), 500.00M))
                     .Generate(5)
                 .ToList();
 

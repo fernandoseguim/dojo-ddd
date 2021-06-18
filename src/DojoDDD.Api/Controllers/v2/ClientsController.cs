@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DojoDDD.Application.Specifications;
 using DojoDDD.Domain.Abstractions.Repositories;
+using DojoDDD.Domain.Clients.Commands;
+using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Infra.DbContext.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,18 +27,27 @@ namespace DojoDDD.Api.Controllers.v2
             if (clientes is null)
                 return NoContent();
 
-            return Ok(clientes);
+            return Ok(clientes.Select(model => (Client)model).ToList());
         }
 
         [HttpGet("{clientId}")]
         public async Task<IActionResult> GetById([FromRoute] string clientId)
         {
-            var clientes = await _repository.GetAsync(new FindClientByIdSpec(clientId)).ConfigureAwait(false);
+            var client = await _repository.GetAsync(new FindClientByIdSpec(clientId)).ConfigureAwait(false);
 
-            if (clientes is null)
+            if (client is null)
                 return NotFound();
 
-            return Ok(clientes);
+            return Ok((Client) client);
+        }
+
+        public async Task<IActionResult> Post(CreateClientCommand command, [FromServices] IEntityRepository<Client> repository)
+        {
+            var client = Client.Create(command.Name, command.Address, command.Age, command.Balance);
+
+            await repository.SaveAsync(client);
+
+            return Created("", client);
         }
     }
 }
