@@ -33,7 +33,7 @@ namespace DojoDDD.Application.UseCases
                 return;
 
             var date = _environment.IsDevelopment() ? DateTime.UtcNow.AddMinutes(1) : period.NextWindow.StartTime.AddMinutes(-15);
-            await _scheduler.Process(new PurchaseOrderProcessingCommand(command.OrderId, new Scheduling(date)));
+            await _scheduler.Process(new PurchaseOrderProcessingCommand(command.OrderId, new Scheduling(null, date)));
         }
     }
 }

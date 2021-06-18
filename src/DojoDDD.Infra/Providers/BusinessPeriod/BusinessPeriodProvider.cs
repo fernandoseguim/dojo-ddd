@@ -35,13 +35,18 @@ namespace DojoDDD.Infra.Providers.BusinessPeriod
 
         private Window GetNextOpenWindow(DateTime date)
         {
-            var nextDate = date.AddDays(1);
-            var starTime = nextDate.Concat(Options.DefaultStartHour);
-            var endTime = nextDate.Concat(Options.DefaultEndHour);
-
+            var nextDate = date;
             Window nextWindow;
 
-            do nextWindow = new Window(starTime, endTime);
+            do
+            {
+                nextDate = nextDate.AddDays(1);
+
+                var starTime = nextDate.Concat(Options.DefaultStartHour);
+                var endTime = nextDate.Concat(Options.DefaultEndHour);
+
+                nextWindow = new Window(starTime, endTime);
+            }
             while(IsBlockedDate(nextDate));
 
             return nextWindow;
