@@ -4,8 +4,10 @@ using DojoDDD.Application.Specifications;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.PuchaseOrders.Commands;
 using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Domain.PuchaseOrders.Events;
 using DojoDDD.Infra.DbContext.Models;
 using MassTransit;
+using MassTransit.KafkaIntegration;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DojoDDD.Api.Controllers.v2
@@ -26,9 +28,9 @@ namespace DojoDDD.Api.Controllers.v2
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] PurchaseOrderRegisterCommand command, [FromServices] IPurchaseOrderRegisterService service, [FromServices] IBus bus)
+        public async Task<IActionResult> Post([FromBody] PurchaseOrderRegisterCommand command, [FromServices] IPurchaseOrderRegisterService service, [FromServices] ITopicProducer<IEvent<PurchaseOrder>> bus)
         {
-            var result = await service.ProcessAsync(command, @event => bus.Publish(@event));
+            var result = await service.ProcessAsync(command, @event => bus.Produce(@event));
 
             return result.IsFailed
                     ? StatusCode(result.StatusCode, result.DetailedErrors)
