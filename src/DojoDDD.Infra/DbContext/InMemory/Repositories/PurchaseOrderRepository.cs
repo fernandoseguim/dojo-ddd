@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.Abstractions.Specifications;
-using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Domain.PurchaseOrders.Entities;
 using DojoDDD.Infra.DbContext.Models;
 
 namespace DojoDDD.Infra.DbContext.InMemory.Repositories

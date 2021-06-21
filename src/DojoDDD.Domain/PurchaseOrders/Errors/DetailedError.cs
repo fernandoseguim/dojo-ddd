@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentResults;
 
-namespace DojoDDD.Domain.PuchaseOrders.Errors
+namespace DojoDDD.Domain.PurchaseOrders.Errors
 {
     public class DetailedError : Error, IEquatable<DetailedError>
     {

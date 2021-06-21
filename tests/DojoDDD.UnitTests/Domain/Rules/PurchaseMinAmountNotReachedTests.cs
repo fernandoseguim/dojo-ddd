@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Domain.Products.Entities;
-using DojoDDD.Domain.PuchaseOrders.Entities;
-using DojoDDD.Domain.PuchaseOrders.Errors;
-using DojoDDD.Domain.PuchaseOrders.Rules;
+using DojoDDD.Domain.PurchaseOrders.Entities;
+using DojoDDD.Domain.PurchaseOrders.Errors;
+using DojoDDD.Domain.PurchaseOrders.Rules;
 using DojoDDD.UnitTests.Fixtures;
 using FluentAssertions;
 using Xunit;

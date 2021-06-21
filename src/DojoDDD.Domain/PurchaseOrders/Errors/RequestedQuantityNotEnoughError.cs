@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DojoDDD.Domain.PuchaseOrders.Errors
+namespace DojoDDD.Domain.PurchaseOrders.Errors
 {
     public class RequestedQuantityNotEnoughError : DetailedError
     {

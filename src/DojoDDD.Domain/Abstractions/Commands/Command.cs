@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DojoDDD.Domain.PuchaseOrders.Errors;
+using DojoDDD.Domain.PurchaseOrders.Errors;
 using FluentResults;
 using FluentValidation;
 

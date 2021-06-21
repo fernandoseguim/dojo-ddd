@@ -2,7 +2,7 @@
 using System.Linq;
 using AutoFixture;
 using Bogus;
-using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Domain.PurchaseOrders.Entities;
 
 namespace DojoDDD.UnitTests.Fixtures
 {

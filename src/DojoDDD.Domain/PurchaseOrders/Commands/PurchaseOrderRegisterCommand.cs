@@ -1,7 +1,7 @@
 ﻿using DojoDDD.Domain.Abstractions.Commands;
 using FluentValidation;
 
-namespace DojoDDD.Domain.PuchaseOrders.Commands
+namespace DojoDDD.Domain.PurchaseOrders.Commands
 {
     public class PurchaseOrderRegisterCommand : Command
     {

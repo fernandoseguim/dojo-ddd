@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Repositories;
-using DojoDDD.Domain.PuchaseOrders.Commands;
-using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Domain.PurchaseOrders.Commands;
+using DojoDDD.Domain.PurchaseOrders.Entities;
 using DojoDDD.Domain.ValueObjects;
 using MassTransit;
 

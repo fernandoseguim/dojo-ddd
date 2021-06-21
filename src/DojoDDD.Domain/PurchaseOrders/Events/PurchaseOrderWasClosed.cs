@@ -1,6 +1,6 @@
-﻿using DojoDDD.Domain.PuchaseOrders.Entities;
+﻿using DojoDDD.Domain.PurchaseOrders.Entities;
 
-namespace DojoDDD.Domain.PuchaseOrders.Events
+namespace DojoDDD.Domain.PurchaseOrders.Events
 {
     public class PurchaseOrderWasClosed : PurchaseOrderWasUpdated
     {

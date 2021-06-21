@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DojoDDD.Domain.PuchaseOrders.Events
+namespace DojoDDD.Domain.PurchaseOrders.Events
 {
     public interface IEvent<out TData>
     {

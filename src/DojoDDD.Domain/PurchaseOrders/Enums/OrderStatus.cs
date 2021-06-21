@@ -1,4 +1,4 @@
-﻿namespace DojoDDD.Domain.PuchaseOrders.Enums
+﻿namespace DojoDDD.Domain.PurchaseOrders.Enums
 {
     public enum OrderStatus
     {

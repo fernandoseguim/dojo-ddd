@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DojoDDD.Application.Abstractions.UseCases;
-using DojoDDD.Domain.PuchaseOrders.Commands;
-using DojoDDD.Domain.PuchaseOrders.Entities;
-using DojoDDD.Domain.PuchaseOrders.Events;
+using DojoDDD.Domain.PurchaseOrders.Commands;
+using DojoDDD.Domain.PurchaseOrders.Entities;
+using DojoDDD.Domain.PurchaseOrders.Events;
 using MassTransit;
 
 namespace DojoDDD.Api.Consumers

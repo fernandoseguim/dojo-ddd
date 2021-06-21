@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using DojoDDD.Domain.Abstractions.Rules;
-using DojoDDD.Domain.PuchaseOrders.Entities;
-using DojoDDD.Domain.PuchaseOrders.Errors;
+using DojoDDD.Domain.PurchaseOrders.Entities;
+using DojoDDD.Domain.PurchaseOrders.Errors;
 
-namespace DojoDDD.Domain.PuchaseOrders.Rules.RuleBooks
+namespace DojoDDD.Domain.PurchaseOrders.Rules.RuleBooks
 {
     public class RulesForRegisterNewPurchaseOrder : RuleBook<PurchaseOrder>
     {

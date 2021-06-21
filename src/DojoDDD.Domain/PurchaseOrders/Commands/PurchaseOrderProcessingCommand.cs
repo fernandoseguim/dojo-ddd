@@ -1,9 +1,8 @@
-﻿using System;
-using DojoDDD.Domain.Abstractions.Commands;
+﻿using DojoDDD.Domain.Abstractions.Commands;
 using DojoDDD.Domain.ValueObjects;
 using Newtonsoft.Json;
 
-namespace DojoDDD.Domain.PuchaseOrders.Commands
+namespace DojoDDD.Domain.PurchaseOrders.Commands
 {
     public class PurchaseOrderProcessingCommand : Command
     {

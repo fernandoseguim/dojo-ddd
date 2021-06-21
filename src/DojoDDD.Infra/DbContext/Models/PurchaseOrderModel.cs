@@ -2,8 +2,8 @@
 using DojoDDD.Domain.Abstractions.Entities;
 using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Domain.Products.Entities;
-using DojoDDD.Domain.PuchaseOrders.Entities;
-using DojoDDD.Domain.PuchaseOrders.Enums;
+using DojoDDD.Domain.PurchaseOrders.Entities;
+using DojoDDD.Domain.PurchaseOrders.Enums;
 using DojoDDD.Domain.ValueObjects;
 
 namespace DojoDDD.Infra.DbContext.Models

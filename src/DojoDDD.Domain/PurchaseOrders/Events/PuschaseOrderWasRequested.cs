@@ -1,11 +1,11 @@
 ﻿using System;
-using DojoDDD.Domain.PuchaseOrders.Entities;
+using DojoDDD.Domain.PurchaseOrders.Entities;
 
-namespace DojoDDD.Domain.PuchaseOrders.Events
+namespace DojoDDD.Domain.PurchaseOrders.Events
 {
-    public class PurchaseOrderWasUpdated : IEvent<PurchaseOrder>
+    public class PurchaseOrderWasRequested : IEvent<PurchaseOrder>
     {
-        public PurchaseOrderWasUpdated(PurchaseOrder data)
+        public PurchaseOrderWasRequested(PurchaseOrder data)
         {
             EntityId = data.Id;
             Timestamp = data.CreatedAt;

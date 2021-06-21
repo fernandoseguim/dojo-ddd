@@ -2,9 +2,9 @@
 using System.Diagnostics.CodeAnalysis;
 using DojoDDD.Api.Consumers;
 using DojoDDD.Api.Extensions.Configurations;
-using DojoDDD.Domain.PuchaseOrders.Commands;
-using DojoDDD.Domain.PuchaseOrders.Entities;
-using DojoDDD.Domain.PuchaseOrders.Events;
+using DojoDDD.Domain.PurchaseOrders.Commands;
+using DojoDDD.Domain.PurchaseOrders.Entities;
+using DojoDDD.Domain.PurchaseOrders.Events;
 using DojoDDD.Infra.Providers.Schedulers;
 using MassTransit;
 using MassTransit.KafkaIntegration;

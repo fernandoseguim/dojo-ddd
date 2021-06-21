@@ -3,18 +3,15 @@ using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Entities;
 using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Domain.Products.Entities;
-using DojoDDD.Domain.PuchaseOrders.Enums;
+using DojoDDD.Domain.PurchaseOrders.Enums;
 using DojoDDD.Domain.ValueObjects;
 
-namespace DojoDDD.Domain.PuchaseOrders.Entities
+namespace DojoDDD.Domain.PurchaseOrders.Entities
 {
     public class PurchaseOrder : Entity
     {
-        private readonly Scheduling _schedulingd;
-
         public PurchaseOrder(string id, Product product, Client client, int requestedQuantity, decimal orderAmount, OrderStatus status, Scheduling scheduling)
         {
-            _schedulingd = scheduling;
             Id = id;
             Product = product;
             Client = client;

@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Domain.Products.Entities;
-using DojoDDD.Domain.PuchaseOrders.Commands;
-using DojoDDD.Domain.PuchaseOrders.Entities;
-using DojoDDD.Domain.PuchaseOrders.Rules.RuleBooks;
+using DojoDDD.Domain.PurchaseOrders.Commands;
+using DojoDDD.Domain.PurchaseOrders.Entities;
+using DojoDDD.Domain.PurchaseOrders.Rules.RuleBooks;
 using FluentResults;
 
-namespace DojoDDD.Domain.PuchaseOrders.Handlers
+namespace DojoDDD.Domain.PurchaseOrders.Handlers
 {
     public class PurchaseOrderRegisterCommandHandler : IPurchaseOrderRegisterCommandHandler
     {

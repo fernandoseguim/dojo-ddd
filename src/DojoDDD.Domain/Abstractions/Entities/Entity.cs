@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DojoDDD.Domain.PuchaseOrders.Events;
+using DojoDDD.Domain.PurchaseOrders.Events;
 using FluentResults;
 
 namespace DojoDDD.Domain.Abstractions.Entities

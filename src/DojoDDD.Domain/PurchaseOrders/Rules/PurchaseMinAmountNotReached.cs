@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using DojoDDD.Domain.Abstractions.Rules;
-using DojoDDD.Domain.PuchaseOrders.Entities;
-using DojoDDD.Domain.PuchaseOrders.Errors;
+using DojoDDD.Domain.PurchaseOrders.Entities;
+using DojoDDD.Domain.PurchaseOrders.Errors;
 
-namespace DojoDDD.Domain.PuchaseOrders.Rules
+namespace DojoDDD.Domain.PurchaseOrders.Rules
 {
     public class PurchaseMinAmountNotReached : IRule<PurchaseOrder, DetailedError>
     {

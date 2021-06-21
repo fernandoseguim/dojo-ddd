@@ -1,4 +1,4 @@
-﻿using DojoDDD.Domain.PuchaseOrders.Commands;
+﻿using DojoDDD.Domain.PurchaseOrders.Commands;
 
 namespace DojoDDD.Api.Controllers.v1.Models
 {

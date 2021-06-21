@@ -2,9 +2,9 @@
 using DojoDDD.Application.Abstractions.UseCases;
 using DojoDDD.Application.Specifications;
 using DojoDDD.Domain.Abstractions.Repositories;
-using DojoDDD.Domain.PuchaseOrders.Commands;
-using DojoDDD.Domain.PuchaseOrders.Entities;
-using DojoDDD.Domain.PuchaseOrders.Events;
+using DojoDDD.Domain.PurchaseOrders.Commands;
+using DojoDDD.Domain.PurchaseOrders.Entities;
+using DojoDDD.Domain.PurchaseOrders.Events;
 using DojoDDD.Infra.DbContext.Models;
 using MassTransit;
 using MassTransit.KafkaIntegration;

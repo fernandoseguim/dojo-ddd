@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DojoDDD.Domain.PuchaseOrders.Errors;
+using DojoDDD.Domain.PurchaseOrders.Errors;
 using FluentResults;
 
 namespace DojoDDD.Domain.Abstractions.Rules
