@@ -1,6 +1,6 @@
 ﻿using DojoDDD.Domain.PurchaseOrders.Entities;
 
-namespace DojoDDD.Domain.PurchaseOrders.Events
+namespace DojoDDD.Domain.PurchaseOrders.Events.StateTransfer
 {
     public class PurchaseOrderWasClosed : PurchaseOrderWasUpdated
     {

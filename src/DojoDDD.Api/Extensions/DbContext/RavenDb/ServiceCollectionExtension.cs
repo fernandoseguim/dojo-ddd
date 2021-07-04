@@ -1,10 +1,10 @@
-﻿using DojoDDD.Api.Extensions.Configurations;
+﻿using Amaury.Abstractions;
+using DojoDDD.Api.Extensions.Configurations;
 using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Domain.Products.Entities;
 using DojoDDD.Domain.PurchaseOrders.Entities;
 using DojoDDD.Infra.DbContext;
-using DojoDDD.Infra.DbContext.InMemory.Repositories;
 using DojoDDD.Infra.DbContext.Models;
 using DojoDDD.Infra.DbContext.RavenDb;
 using DojoDDD.Infra.DbContext.RavenDb.Repositories;
@@ -21,25 +21,34 @@ namespace DojoDDD.Api.Extensions.DbContext.RavenDb
             services.Configure<DbContextOptions>(configuration.GetSection("DbContext"));
 
             var connection = configuration.GetRavenDbClusterConnection();
-            var options = configuration.GetDbContext();
 
             services.AddSingleton<IDocumentStore>(new DocumentStore
             {
-                    Urls = connection.Endpoints,
-                    Certificate = null,
-                    Database = options.Name
+                    Urls = connection.Endpoints
             }.Initialize());
 
             services.AddScoped<IDatabaseContext<IDocumentStore>, RavenDbDatabaseContext>();
+            services.AddScoped<IDatabaseContext<IDocumentStore>, RavenDbCelebrityEventStoreContext>();
             services.AddAsyncInitializer<DatabaseContextInitializer>();
+
+            services.AddCelebrityEventStore<PurchaseOrder, RavenDbEventStoreModel>();
 
             services.AddScoped<IQueryableRepository<ClientModel>, ClientRavenDbRepository>();
             services.AddScoped<IQueryableRepository<ProductModel>, ProductsRavenDbRepository>();
-            services.AddScoped<IQueryableRepository<PurchaseOrderModel>, PurchaseOrderRavenDbRepository>();
+            services.AddScoped<IQueryableRepository<PurchaseOrderModel>, PurchaseOrderEventStoreRavenDbRepository>();
 
             services.AddScoped<IEntityRepository<Client>, ClientRavenDbRepository>();
             services.AddScoped<IEntityRepository<Product>, ProductsRavenDbRepository>();
-            services.AddScoped<IEntityRepository<PurchaseOrder>, PurchaseOrderRavenDbRepository>();
+            services.AddScoped<IEntityRepository<PurchaseOrder>, PurchaseOrderEventStoreRavenDbRepository>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddCelebrityEventStore<TCelebrity, TEventStoreModel>(this IServiceCollection services)
+                where TCelebrity : CelebrityAggregateBase
+                where TEventStoreModel : IRavenDbEventStoreModel, new()
+        {
+            services.AddScoped<ICelebrityEventStore<TCelebrity, TEventStoreModel>, RavenDbCelebrityEventStore<TCelebrity, TEventStoreModel>>();
 
             return services;
         }

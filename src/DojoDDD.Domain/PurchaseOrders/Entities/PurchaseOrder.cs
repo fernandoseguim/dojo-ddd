@@ -1,15 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Amaury.Abstractions;
 using DojoDDD.Domain.Abstractions.Entities;
 using DojoDDD.Domain.Clients.Entities;
 using DojoDDD.Domain.Products.Entities;
 using DojoDDD.Domain.PurchaseOrders.Enums;
+using DojoDDD.Domain.PurchaseOrders.Events;
 using DojoDDD.Domain.ValueObjects;
 
 namespace DojoDDD.Domain.PurchaseOrders.Entities
 {
     public class PurchaseOrder : Entity
     {
+        public PurchaseOrder(IEnumerable<CelebrityEventBase> events)
+        {
+            foreach(var @event in events)
+            {
+                Id = @event.AggregateId;
+                ApplyEvent(@event);
+            }
+        }
+
+        public PurchaseOrder(string id, CelebrityEventBase @event)
+        {
+            Id = id;
+            ApplyEvent(@event);
+        }
+
         public PurchaseOrder(string id, Product product, Client client, int requestedQuantity, decimal orderAmount, OrderStatus status, Scheduling scheduling)
         {
             Id = id;
@@ -45,6 +63,7 @@ namespace DojoDDD.Domain.PurchaseOrders.Entities
                     OrderAmount = product.UnitPrice * requestedQuantity,
             };
 
+            order.AppendEvent(new PurchaseOrderWasCreated(order.Id, order.Product, order.Client, order.RequestedQuantity, order.OrderAmount, order.Status, order.CreatedAt));
             return order;
         }
 
@@ -53,6 +72,7 @@ namespace DojoDDD.Domain.PurchaseOrders.Entities
             UpdatedAt = DateTime.UtcNow;
             Status = OrderStatus.Scheduled;
             Scheduling = await scheduler();
+            AppendEvent(new PurchaseOrderWasScheduled(Id, Scheduling, Status, UpdatedAt));
         }
 
         public void Cancel()
@@ -67,6 +87,27 @@ namespace DojoDDD.Domain.PurchaseOrders.Entities
             Scheduling = null;
             Status = OrderStatus.Closed;
             UpdatedAt = DateTime.UtcNow;
+        }
+
+        public override string GetAggregateId() => Id;
+
+        public void Apply(PurchaseOrderWasCreated @event)
+        {
+            Id = @event.AggregateId;
+            Product = @event.Product;
+            Client = @event.Client;
+            RequestedQuantity = @event.RequestedQuantity;
+            OrderAmount = @event.OrderAmount;
+            Status = @event.Status;
+            CreatedAt = @event.CreatedAt;
+        }
+
+        public void Apply(PurchaseOrderWasScheduled @event)
+        {
+            Id = @event.AggregateId;
+            Scheduling = @event.Scheduling;
+            Status = @event.Status;
+            UpdatedAt = @event.UpdatedAt;
         }
     }
 }

@@ -5,7 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Amaury" Version="2.0.0" />
       <PackageReference Include="AspNetCore.AsyncInitialization" Version="1.1.2" />
       <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="5.0.1" />
       <PackageReference Include="Bogus" Version="33.0.2" />

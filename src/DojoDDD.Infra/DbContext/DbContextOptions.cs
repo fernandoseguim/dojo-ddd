@@ -2,6 +2,8 @@
 {
     public class DbContextOptions
     {
-        public string Name { get; set; }
+        public string[] Databases { get; set; }
+
+        public string EventStore { get; set; }
     }
 }

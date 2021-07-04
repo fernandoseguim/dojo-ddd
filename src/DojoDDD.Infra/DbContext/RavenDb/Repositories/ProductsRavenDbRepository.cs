@@ -7,6 +7,7 @@ using DojoDDD.Domain.Abstractions.Repositories;
 using DojoDDD.Domain.Abstractions.Specifications;
 using DojoDDD.Domain.Products.Entities;
 using DojoDDD.Infra.DbContext.Models;
+using Microsoft.Extensions.Options;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Session;
 
@@ -16,7 +17,16 @@ namespace DojoDDD.Infra.DbContext.RavenDb.Repositories
     {
         private readonly IAsyncDocumentSession _session;
 
-        public ProductsRavenDbRepository(IDatabaseContext<IDocumentStore> context) => _session = context.Store.OpenAsyncSession();
+        public ProductsRavenDbRepository(IDatabaseContext<IDocumentStore> context, IOptions<DbContextOptions> options)
+        {
+            if(options is null) throw new ArgumentNullException(nameof(options));
+
+            var database = options.Value.Databases.FirstOrDefault();
+
+            if(database is null) throw new InvalidOperationException();
+
+            _session = context.Store.OpenAsyncSession(database);
+        }
 
         public async Task<Product> GetAsync(string id)
         {

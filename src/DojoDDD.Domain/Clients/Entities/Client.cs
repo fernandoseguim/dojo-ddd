@@ -58,5 +58,7 @@ namespace DojoDDD.Domain.Clients.Entities
         public static bool operator ==(Client left, Client right) => Equals(left, right);
 
         public static bool operator !=(Client left, Client right) => !Equals(left, right);
+
+        public override string GetAggregateId() => Id;
     }
 }

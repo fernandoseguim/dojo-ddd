@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AspNetCore.AsyncInitialization;
 using Raven.Client.Documents;
 
@@ -6,12 +7,17 @@ namespace DojoDDD.Infra.DbContext
 {
     public class DatabaseContextInitializer : IAsyncInitializer
     {
-        private readonly IDatabaseContext<IDocumentStore> _databaseContext;
+        private readonly IEnumerable<IDatabaseContext<IDocumentStore>> _databaseContexts;
 
-        public DatabaseContextInitializer(IDatabaseContext<IDocumentStore> databaseContext)
-            => _databaseContext = databaseContext;
+        public DatabaseContextInitializer(IEnumerable<IDatabaseContext<IDocumentStore>> databaseContexts)
+            => _databaseContexts = databaseContexts;
 
         public async Task InitializeAsync()
-            => await _databaseContext.ConfigureAsync();
+        {
+            foreach(var databaseContext in _databaseContexts)
+            {
+                 await databaseContext.ConfigureAsync();
+            }
+        }
     }
 }

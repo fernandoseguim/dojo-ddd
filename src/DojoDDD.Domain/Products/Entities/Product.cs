@@ -57,5 +57,7 @@ namespace DojoDDD.Domain.Products.Entities
         public static bool operator ==(Product left, Product right) => Equals(left, right);
 
         public static bool operator !=(Product left, Product right) => !Equals(left, right);
+
+        public override string GetAggregateId() => Id;
     }
 }

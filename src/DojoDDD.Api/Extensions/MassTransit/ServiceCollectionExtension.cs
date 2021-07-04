@@ -5,6 +5,7 @@ using DojoDDD.Api.Extensions.Configurations;
 using DojoDDD.Domain.PurchaseOrders.Commands;
 using DojoDDD.Domain.PurchaseOrders.Entities;
 using DojoDDD.Domain.PurchaseOrders.Events;
+using DojoDDD.Domain.PurchaseOrders.Events.StateTransfer;
 using DojoDDD.Infra.Providers.Schedulers;
 using MassTransit;
 using MassTransit.KafkaIntegration;

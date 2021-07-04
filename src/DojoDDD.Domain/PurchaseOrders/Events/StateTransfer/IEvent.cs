@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DojoDDD.Domain.PurchaseOrders.Events
+namespace DojoDDD.Domain.PurchaseOrders.Events.StateTransfer
 {
     public interface IEvent<out TData>
     {
